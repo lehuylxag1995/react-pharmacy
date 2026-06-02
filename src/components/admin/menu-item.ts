@@ -1,0 +1,31 @@
+import {
+  BarChart3,
+  FileText,
+  Layers,
+  LayoutDashboard,
+  Package,
+  Percent,
+  Pill,
+  Settings,
+  ShoppingCart,
+  Star,
+  Truck,
+  Users,
+  Warehouse,
+} from "lucide-react";
+
+export const menuItems = [
+  { icon: LayoutDashboard, label: "Tổng quan", active: true },
+  { icon: Package, label: "Sản phẩm" },
+  { icon: Layers, label: "Danh mục" },
+  { icon: ShoppingCart, label: "Đơn hàng" },
+  { icon: Users, label: "Khách hàng" },
+  { icon: Truck, label: "Nhà cung cấp" },
+  { icon: Warehouse, label: "Kho hàng" },
+  { icon: Pill, label: "Đơn thuốc" },
+  { icon: FileText, label: "Bài viết" },
+  { icon: Percent, label: "Khuyến mãi" },
+  { icon: Star, label: "Đánh giá" },
+  { icon: BarChart3, label: "Báo cáo" },
+  { icon: Settings, label: "Cài đặt" },
+];
