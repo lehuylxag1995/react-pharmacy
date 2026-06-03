@@ -6,51 +6,46 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* font */
-  --font-heading: var(--font-sans);
-  --font-sans: "Inter Variable", sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-  /* Bổ sung các màu chart & custom từ thiết kế */
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  --color-warning: var(--warning);
-  --color-warning-foreground: var(--warning-foreground);
-  --color-success: var(--success);
-  --color-success-foreground: var(--success-foreground);
-  --color-info: var(--info);
-  --color-info-foreground: var(--info-foreground);
-
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -59,52 +54,65 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* font */
+  --font-heading: var(--font-sans);
+  --font-sans: "Inter Variable", sans-serif;
+
+  /* status */
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-special: var(--special);
+  --color-special-foreground: var(--special-foreground);
 }
 
 :root {
-  /* BACKGROUND & FOREGROUND (Page BG #F9FAFB & Gray 900 #111827) */
-  --background: oklch(0.98 0.005 247.83);
-  --foreground: oklch(0.13 0.015 248.31);
+  /* BACKGROUND & FOREGROUND (Page BG #F8FAFC & Gray 900 #111827) */
+  --background: oklch(98.42% 0.003 247.86);
+  --foreground: oklch(21.01% 0.032 264.66);
 
   /* CARD & POPOVER (Card BG #FFFFFF) */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0.015 248.31);
+  --card-foreground: oklch(21.01% 0.032 264.66);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0.015 248.31);
+  --popover-foreground: oklch(21.01% 0.032 264.66);
 
-  /* PRIMARY (Primary 500 #16A34A) */
-  --primary: oklch(0.63 0.17 146.41);
+  /* PRIMARY (Primary 500 #16A34A) / Chính */
+  --primary: oklch(62.71% 0.17 149.21);
   --primary-foreground: oklch(1 0 0);
 
-  /* SECONDARY (Gray 100 #F3F4F6) */
+  /* SECONDARY (Gray 100 #F3F4F6) / Phụ */
   --secondary: oklch(0.96 0.006 247.9);
   --secondary-foreground: oklch(0.13 0.015 248.31);
 
-  /* MUTED (Gray 100 #F3F4F6 & Gray 500 #6B7280) */
+  /* MUTED (Gray 100 #F3F4F6 & Gray 500 #6B7280 / ít quan trọng ) */
   --muted: oklch(0.96 0.006 247.9);
   --muted-foreground: oklch(0.55 0.014 249.29);
 
-  /* ACCENT (Primary 50 #F0FDF4 / Nhấp chọn menu) */
+  /* ACCENT (Primary 50 #F0FDF4 / Hover / Select) */
   --accent: oklch(0.98 0.015 147.45);
   --accent-foreground: oklch(0.63 0.17 146.41);
 
   /* STATUSES */
   --success: oklch(0.72 0.22 145.42); /* #22C55E (Success 500) */
   --success-foreground: oklch(1 0 0);
-
   --warning: oklch(0.76 0.17 49.38); /* #F59E0B (Warning 500) */
   --warning-foreground: oklch(1 0 0);
-
   --destructive: oklch(0.63 0.22 26.11); /* #EF4444 (Danger 500) */
   --destructive-foreground: oklch(1 0 0);
-
   --info: oklch(0.62 0.19 252.37); /* #3B82F6 (Info 500) */
   --info-foreground: oklch(1 0 0);
+  --special: oklch(62.68% 0.233 303.9); /* #A855F7 */
+  --special-foreground: oklch(1 0 0);
 
   /* BORDER & INPUT (Gray 200 #E5E7EB) */
-  --border: oklch(0.92 0.008 247.89);
-  --input: oklch(0.92 0.008 247.89);
-  --ring: oklch(0.63 0.17 146.41);
+  --border: oklch(92.76% 0.006 264.53);
+  --input: oklch(92.76% 0.006 264.53);
+  --ring: oklch(62.71% 0.17 149.21);
 
   /* CHARTS */
   --chart-1: oklch(0.72 0.22 145.42); /* #22C55E */
@@ -114,15 +122,17 @@
   --chart-5: oklch(0.63 0.22 26.11); /* #EF4444 */
 
   /* SIDEBAR (Màu Gray 900 #111827) */
-  --sidebar: oklch(0.13 0.015 248.31);
-  --sidebar-foreground: oklch(0.98 0.005 247.83);
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.22 0.01 250);
+
   --sidebar-primary: oklch(0.63 0.17 146.41);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(
-    0.28 0.012 248.45
-  ); /* Khoảng màu Gray 700 nhạt hơn để Hover */
-  --sidebar-accent-foreground: oklch(0.98 0.005 247.83);
-  --sidebar-border: oklch(0.24 0.019 248.38); /* Gray 800 */
+
+  --sidebar-accent: oklch(0.98 0.015 147.45);
+  --sidebar-accent-foreground: oklch(0.63 0.17 146.41);
+
+  --sidebar-border: oklch(0.92 0.01 250);
+
   --sidebar-ring: oklch(0.63 0.17 146.41);
 
   --radius: 0.5rem;
@@ -134,7 +144,7 @@
   --foreground: oklch(0.96 0.006 247.9);
 
   /* CARD & POPOVER (Card BG #111827) */
-  --card: oklch(0.13 0.015 248.31);
+  --card: oklch(26.6% 0.03619 257.146 / 0.482);
   --card-foreground: oklch(0.96 0.006 247.9);
   --popover: oklch(0.13 0.015 248.31);
   --popover-foreground: oklch(0.96 0.006 247.9);

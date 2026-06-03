@@ -17,30 +17,34 @@ export default function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
 
       {/* Khung nội dung menu trượt */}
       <aside
-        className={`absolute inset-y-0 left-0 w-64 bg-sidebar text-sidebar-foreground flex flex-col p-4 transition-transform duration-300 ease-in-out 
+        className={`absolute inset-y-0 left-0 w-74 bg-sidebar text-sidebar-foreground flex flex-col p-4 transition-transform duration-300 ease-in-out 
             ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex items-center justify-between pb-4 border-b border-sidebar-border mb-4">
+        {/* logo va X  */}
+        <div className="h-16 flex items-center justify-between border-b">
           <div className="flex items-center gap-2">
-            <div className="size-6 bg-primary rounded flex items-center justify-center text-white font-bold text-sm">
+            <div className="size-6 bg-sidebar-primary text-sidebar-primary-foreground rounded flex items-center justify-center font-bold text-xl">
               P
             </div>
-            <span className="font-bold text-base text-white">PharmaShop</span>
+            <span className="font-bold text-xl text-sidebar-foreground ">
+              PharmaShop
+            </span>
           </div>
+
           <button
             onClick={onClose}
-            className="text-sidebar-foreground/60 hover:text-white"
+            className="text-sidebar-foreground hover:text-sidebar-accent-foreground"
           >
             <X className="size-5" />
           </button>
         </div>
 
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-1 space-y-1 overflow-y-auto">
           {menuItems.map((item, index) => (
             <a
               key={index}
               href="#"
-              className={`flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium text-sm
+              className={`flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium text-lg
                 ${item.active ? "bg-sidebar-primary text-sidebar-primary-foreground" : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"}`}
             >
               <item.icon className="size-4 shrink-0" />

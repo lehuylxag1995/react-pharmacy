@@ -29,7 +29,7 @@ export default function AdminLayout() {
           setIsMobileMenuOpen={setIsMobileMenuOpen}
         />
 
-        <main className="flex-1 bg-background p-3 md:p-5 overflow-y-auto ">
+        <main className="flex-1 bg-background overflow-y-auto ">
           <Outlet />
         </main>
       </div>
