@@ -1,40 +1,18 @@
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   ArrowUpRight,
   BadgeDollarSign,
   Package,
   ShoppingCart,
   Users,
 } from "lucide-react";
+import AreaChartExample from "./components/area-chart-data";
+import PieChartExample from "./components/pie-char-data";
 
 export default function DashboardPage() {
   return (
     <div className="flex flex-col">
-      {/* mobile - Chọn ngày xem thống kê */}
-      <div className="md:hidden bg-sidebar text-sidebar-foreground w-full py-4 px-5 border-y border-border">
-        <Select defaultValue="7">
-          <SelectTrigger className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="7">7 Ngày qua</SelectItem>
-              <SelectItem value="30">30 Ngày qua</SelectItem>
-              <SelectItem value="90">90 Ngày qua</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-
-      {/* desktop - 4 thẻ tổng kết */}
-      <div className="grid grid-cols-1 p-5 gap-3 md:grid-cols-4">
+      {/* 4 thẻ tổng kết */}
+      <div className="grid grid-cols-1 px-4 pt-4 gap-4 lg:grid-cols-4">
         <div className="flex items-center bg-card text-card-foreground rounded-xl p-5 shadow border border-border md:p-4">
           {/* thông tin thẻ */}
           <div className="w-4/5 flex flex-col gap-2">
@@ -132,7 +110,49 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div></div>
+      {/* 2 bảng biểu đồ */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 px-4 pt-4 gap-4">
+        {/* Biểu đồ AreaChart  */}
+        <div className="flex flex-col bg-card text-card-foreground rounded-xl p-5 shadow border border-border">
+          <div className="flex flex-col gap-5">
+            {/* Tiêu đề */}
+            <span className="capitalize text-xl font-bold">doanh thu</span>
+
+            {/* thời gian */}
+            <div className="flex justify-between items-center gap-3 lg:justify-start">
+              <button className="bg-primary text-primary-foreground px-5 py-2 rounded-md">
+                7 ngày
+              </button>
+              <button className="bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-5 py-2">
+                30 ngày
+              </button>
+              <button className="bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-5 py-2">
+                90 ngày
+              </button>
+            </div>
+          </div>
+
+          {/* biểu đồ 1 */}
+          <div className="flex-1 flex items-center justify-center w-full">
+            <AreaChartExample />
+          </div>
+        </div>
+
+        {/* Biểu đồ PieChart - kích thước co giãn tự động theo nội dung */}
+        <div className="flex flex-col bg-card text-card-foreground rounded-xl p-5 shadow border border-border">
+          {/* Tiêu đề */}
+          <span className="capitalize text-xl font-bold mb-5  ">
+            đơn hàng theo trạng thái
+          </span>
+
+          <div className="flex-1 flex items-center justify-center w-full">
+            <PieChartExample />
+          </div>
+        </div>
+      </div>
+
+      {/* 2 bảng thường */}
+      <div className="grid grid-cols-1 px-4 pt-4 gap-4"></div>
     </div>
   );
 }
