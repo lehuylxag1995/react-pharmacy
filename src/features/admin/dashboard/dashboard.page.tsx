@@ -7,6 +7,8 @@ import {
 } from "lucide-react";
 import AreaChartExample from "./components/area-chart-data";
 import PieChartExample from "./components/pie-char-data";
+import { TableBest } from "./components/table-best-data";
+import { TableNewOrder } from "./components/table-new-order";
 
 export default function DashboardPage() {
   return (
@@ -152,7 +154,37 @@ export default function DashboardPage() {
       </div>
 
       {/* 2 bảng thường */}
-      <div className="grid grid-cols-1 px-4 pt-4 gap-4"></div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 px-4 pt-4 gap-4">
+        <div className="flex flex-col bg-card text-card-foreground rounded-xl p-5 shadow border border-border">
+          {/* header */}
+          <div className="flex justify-between font-bold">
+            <span className="text-foreground capitalize">
+              sản phẩm bán chạy
+            </span>
+            <span className="text-primary capitalize">xem thêm</span>
+          </div>
+
+          {/* content */}
+          <div className="flex mt-4">
+            <TableBest />
+          </div>
+        </div>
+
+        <div className="flex flex-col bg-card text-card-foreground rounded-xl p-5 shadow border border-border">
+          {/* header */}
+          <div className="flex justify-between font-bold">
+            <span className="text-foreground capitalize">
+              đơn hàng mới nhất
+            </span>
+            <span className="text-primary capitalize">xem thêm</span>
+          </div>
+
+          {/* content */}
+          <div className="flex mt-4">
+            <TableNewOrder />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
