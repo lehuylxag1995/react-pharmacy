@@ -57,7 +57,7 @@ const chartConfig = {
 
 export default function AreaChartExample() {
   return (
-    <ChartContainer config={chartConfig} className="min-h-50 w-full lg:h-full">
+    <ChartContainer config={chartConfig} className="min-h-70 w-full lg:h-full">
       <AreaChart
         data={data}
         margin={{

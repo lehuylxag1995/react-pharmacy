@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { NavLink } from "react-router";
 import { menuItems } from "./menu-item";
 
 interface SidebarMobileProps {
@@ -17,7 +18,7 @@ export default function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
 
       {/* Khung nội dung menu trượt */}
       <aside
-        className={`absolute inset-y-0 left-0 w-74 bg-sidebar text-sidebar-foreground flex flex-col p-4 transition-transform duration-300 ease-in-out 
+        className={`absolute inset-y-0 left-0 w-60 bg-sidebar text-sidebar-foreground flex flex-col p-4 transition-transform duration-300 ease-in-out 
             ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* logo va X  */}
@@ -41,15 +42,22 @@ export default function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
 
         <nav className="flex-1 p-1 space-y-1 overflow-y-auto">
           {menuItems.map((item, index) => (
-            <a
+            <NavLink
               key={index}
-              href="#"
-              className={`flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium text-lg
-                ${item.active ? "bg-sidebar-primary text-sidebar-primary-foreground" : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"}`}
+              to={item.path}
+              end={item.path === "/admin"}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium text-sm transition-colors
+              ${
+                isActive
+                  ? "bg-sidebar-primary text-sidebar-primary-foreground" // Khi đang ở trang này
+                  : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground" // Khi ở trang khác
+              }`
+              }
             >
               <item.icon className="size-4 shrink-0" />
               <span className="md:block">{item.label}</span>
-            </a>
+            </NavLink>
           ))}
         </nav>
       </aside>

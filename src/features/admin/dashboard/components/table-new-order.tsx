@@ -63,7 +63,7 @@ export function TableNewOrder() {
   return (
     <Table>
       <TableHeader>
-        <TableRow className="bg-secondary/50">
+        <TableRow className="bg-secondary/50 text-center">
           <TableHead className="capitalize">#</TableHead>
           <TableHead className="capitalize">khách hàng</TableHead>
           <TableHead className="capitalize">thời gian</TableHead>
@@ -71,12 +71,13 @@ export function TableNewOrder() {
           <TableHead className="capitalize">trạng thái</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody className="text-foreground text-left">
+      <TableBody className="text-foreground">
         {orders.map((order) => (
-          <TableRow key={order.id}>
-            <TableCell className="text-foreground font-semibold">
-              {order.id}
-            </TableCell>
+          <TableRow
+            key={order.id}
+            className="transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer"
+          >
+            <TableCell className="font-semibold">{order.id}</TableCell>
             <TableCell>{order.nameUser}</TableCell>
             <TableCell>{order.time}</TableCell>
             <TableCell>

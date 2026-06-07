@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   ArrowUpRight,
   BadgeDollarSign,
@@ -122,15 +123,15 @@ export default function DashboardPage() {
 
             {/* thời gian */}
             <div className="flex justify-between items-center gap-3 lg:justify-start">
-              <button className="bg-primary text-primary-foreground px-5 py-2 rounded-md">
+              <Button className="bg-primary text-primary-foreground">
                 7 ngày
-              </button>
-              <button className="bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-5 py-2">
+              </Button>
+              <Button className="bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground">
                 30 ngày
-              </button>
-              <button className="bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground rounded-md px-5 py-2">
+              </Button>
+              <Button className="bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground">
                 90 ngày
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -154,7 +155,7 @@ export default function DashboardPage() {
       </div>
 
       {/* 2 bảng thường */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 px-4 pt-4 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 px-4 py-4 gap-4">
         <div className="flex flex-col bg-card text-card-foreground rounded-xl p-5 shadow border border-border">
           {/* header */}
           <div className="flex justify-between font-bold">

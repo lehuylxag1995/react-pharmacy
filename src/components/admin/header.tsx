@@ -1,4 +1,5 @@
 import { Bell, ChevronDown, Mail, Menu, Search } from "lucide-react";
+import { ModeToggle } from "../mode-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 interface HeaderProps {
@@ -12,9 +13,9 @@ export default function Header({
   setIsSidebarCollapsed,
 }: HeaderProps) {
   return (
-    <header className="bg-sidebar text-sidebar-foreground border-b flex flex-col h-auto shrink-0 md:h-16 md:flex-row md:justify-between">
-      {/* DÒNG 1 TRÊN MOBILE */}
-      <div className="w-full flex items-center justify-between px-5 pt-5 md:justify-start md:px-3 md:pt-0 md:gap-5 md:w-auto">
+    <header className="h-16 bg-sidebar text-sidebar-foreground border-b flex items-center justify-between px-4">
+      {/* menu + tên trang */}
+      <div className="flex items-center gap-2 lg:gap-5">
         {/* Nút Menu cho Desktop */}
         <button
           className="hidden md:block p-2 border transition-colors rounded text-foreground hover:bg-muted"
@@ -25,47 +26,45 @@ export default function Header({
 
         {/* Nút Menu cho Mobile */}
         <button
-          className="md:hidden p-2 rounded border hover:bg-muted transition-colors text-foreground"
+          className="md:hidden p-1 rounded border transition-colors bg-secondary text-foreground"
           onClick={() => setIsMobileMenuOpen(true)} // Mở menu trượt Mobile
         >
-          <Menu className="size-7" />
+          <Menu className="size-5" />
         </button>
 
-        {/* tên trang cho Desktop */}
-        <h4 className="hidden md:flex text-base font-semibold text-primary capitalize">
+        {/* tên trang */}
+        <h4 className="flex text-base font-semibold text-primary capitalize">
           tổng quan
         </h4>
+      </div>
 
-        {/* avatar người dùng mobile */}
+      {/* nút chức năng + avatar */}
+      <div className="flex items-center gap-5">
+        {/* bộ 3 icon của header */}
+        <ModeToggle />
+
+        <Search className="size-5 text-muted-foreground cursor-pointer hover:text-foreground" />
+
+        <div className="relative cursor-pointer">
+          <Bell className="size-5 text-muted-foreground hover:text-foreground" />
+          <div className="absolute -top-1.5 -right-2 bg-red-500 text-white rounded-full size-4 flex items-center justify-center text-[9px] font-bold">
+            5
+          </div>
+        </div>
+
+        <div className="hidden lg:block relative cursor-pointer">
+          <Mail className="size-5 text-muted-foreground hover:text-foreground" />
+          <div className="absolute -top-1.5 -right-2 bg-red-500 text-white rounded-full size-4 flex items-center justify-center text-[9px] font-bold">
+            5
+          </div>
+        </div>
+
+        {/* avatar cho mobile */}
         <div className="md:hidden">
-          <Avatar className="size-12">
+          <Avatar className="size-8">
             <AvatarImage src="https://picsum.photos/200/300" />
             <AvatarFallback>LH</AvatarFallback>
           </Avatar>
-        </div>
-      </div>
-
-      {/* DÒNG 2 TRÊN MOBILE */}
-      <div className="w-full flex items-center justify-between p-6 md:pr-3 md:w-auto md:gap-6">
-        {/* tên trang cho mobile */}
-        <h4 className="md:hidden text-2xl font-semibold text-primary whitespace-nowrap">
-          <span>Dashboard</span>
-        </h4>
-
-        {/* bộ 3 icon của header */}
-        {/* <ModeToggle /> */}
-        <Search className="size-8 md:size-5 text-muted-foreground cursor-pointer hover:text-foreground" />
-        <div className="relative cursor-pointer">
-          <Bell className="size-8 md:size-5 text-muted-foreground hover:text-foreground" />
-          <div className="absolute -top-1.5 -right-2 bg-red-500 text-white rounded-full size-4 flex items-center justify-center text-[9px] font-bold">
-            5
-          </div>
-        </div>
-        <div className="relative cursor-pointer">
-          <Mail className="size-8 md:size-5 text-muted-foreground hover:text-foreground" />
-          <div className="absolute -top-1.5 -right-2 bg-red-500 text-white rounded-full size-4 flex items-center justify-center text-[9px] font-bold">
-            5
-          </div>
         </div>
 
         {/* avatar cho desktop */}

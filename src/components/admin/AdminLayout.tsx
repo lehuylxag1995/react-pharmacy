@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Outlet } from "react-router";
+import BottomNavigation from "./bottom-navigation";
 import Header from "./header";
 import Sidebar from "./sidebar";
 import SidebarMobile from "./sidebar-mobile";
@@ -22,6 +23,7 @@ export default function AdminLayout() {
         onClose={() => setIsMobileMenuOpen(false)}
       />
 
+      {/* content bên phải */}
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         <Header
           isSidebarCollapsed={isSidebarCollapsed}
@@ -29,9 +31,12 @@ export default function AdminLayout() {
           setIsMobileMenuOpen={setIsMobileMenuOpen}
         />
 
-        <main className="flex-1 bg-background overflow-y-auto ">
+        <main className="flex-1 pb-16 lg:pb-0 bg-background overflow-y-auto">
           <Outlet />
         </main>
+
+        {/* (Tự ẩn trên Desktop, chỉ hiện trên Mobile) */}
+        <BottomNavigation />
       </div>
     </div>
   );

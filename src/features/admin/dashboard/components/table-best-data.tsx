@@ -58,7 +58,10 @@ export function TableBest() {
       </TableHeader>
       <TableBody className="text-foreground">
         {products.map((product) => (
-          <TableRow key={product.id}>
+          <TableRow
+            key={product.id}
+            className="transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer"
+          >
             <TableCell className="text-foreground font-semibold">
               {product.id}
             </TableCell>

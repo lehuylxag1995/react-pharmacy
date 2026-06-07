@@ -1,12 +1,16 @@
+import NotificationPage from "@/features/admin/notification/notification.page";
+import OrderPage from "@/features/admin/order/order.page";
+import ProductPage from "@/features/admin/product/product.page";
+import UserPage from "@/features/admin/user/user.page";
 import { createBrowserRouter } from "react-router";
+import AdminLayout from "../components/admin/AdminLayout";
+import AuthLayout from "../components/auth/AuthLayout";
+import UserLayout from "../components/user/UserLayout";
 import CategoryPage from "../features/admin/category/category.page";
 import DashboardPage from "../features/admin/dashboard/dashboard.page";
 import RegisterPage from "../features/auth/register/register.page";
 import SignInPage from "../features/auth/sign-in/sign-in.page";
 import HomePage from "../features/user/home/home.page";
-import AdminLayout from "../components/admin/AdminLayout";
-import AuthLayout from "../components/auth/AuthLayout";
-import UserLayout from "../components/user/UserLayout";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +32,10 @@ export const router = createBrowserRouter([
     children: [
       { index: true, Component: DashboardPage },
       { path: "category", Component: CategoryPage },
+      { path: "order", Component: OrderPage },
+      { path: "product", Component: ProductPage },
+      { path: "notification", Component: NotificationPage },
+      { path: "user", Component: UserPage },
     ],
   },
 ]);

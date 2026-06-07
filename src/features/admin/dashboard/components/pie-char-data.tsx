@@ -64,15 +64,15 @@ const chartData = [
 
 export default function PieChartExample() {
   return (
-    <ChartContainer config={chartConfig} className="min-h-50 w-full lg:h-full">
+    <ChartContainer config={chartConfig} className="min-h-70 w-full lg:h-full">
       <PieChart accessibilityLayer>
-        <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+        <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend
-          layout="vertical"
-          align="right"
-          verticalAlign="middle"
+          // layout="horizontal"
+          // align="center"
+          // verticalAlign="bottom"
           content={({ payload }) => (
-            <div className="flex flex-col gap-3 pl-4">
+            <div className="flex flex-col gap-2">
               {payload?.map((p: any) => {
                 const config = chartConfig[p.value as keyof typeof chartConfig];
 
