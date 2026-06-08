@@ -13,7 +13,7 @@ export default function Header({
   setIsSidebarCollapsed,
 }: HeaderProps) {
   return (
-    <header className="h-16 bg-sidebar text-sidebar-foreground border-b flex items-center justify-between px-4">
+    <header className="h-16 bg-sidebar text-sidebar-foreground border-b z-10 shadow  flex items-center justify-between px-4 ">
       {/* menu + tên trang */}
       <div className="flex items-center gap-2 lg:gap-5">
         {/* Nút Menu cho Desktop */}

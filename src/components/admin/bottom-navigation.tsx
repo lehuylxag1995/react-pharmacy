@@ -1,6 +1,6 @@
 import {
-  Bell,
   Box,
+  Layers,
   LayoutDashboard,
   MoreHorizontal,
   ShoppingBag,
@@ -16,7 +16,7 @@ const navItems = [
   },
   { icon: ShoppingBag, label: "Đơn hàng", badge: 0, path: "/admin/order" },
   { icon: Box, label: "Sản phẩm", badge: 0, path: "/admin/product" },
-  { icon: Bell, label: "Thông báo", badge: 3, path: "/admin/notification" },
+  { icon: Layers, label: "Danh mục", badge: 3, path: "/admin/category" },
   { icon: MoreHorizontal, label: "Thêm", badge: 0, path: "/admin/add" },
 ];
 

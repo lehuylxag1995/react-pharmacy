@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
-import { NavLink } from "react-router";
+import { useEffect } from "react";
+import { NavLink, useLocation } from "react-router";
 import { menuItems } from "./menu-item";
 
 interface SidebarMobileProps {
@@ -8,6 +9,12 @@ interface SidebarMobileProps {
 }
 
 export default function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
+  const location = useLocation();
+
+  useEffect(() => {
+    onClose();
+  }, [location.pathname]);
+
   return (
     <div
       className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 
