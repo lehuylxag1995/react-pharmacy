@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { NavLink } from "react-router";
 import { CategoryFilter } from "./components/CategoryFilte";
 import CategoryList from "./components/CategoryList";
 import CategoryListMobile from "./components/CategoryListMobile";
@@ -17,10 +18,12 @@ export default function CategoryPage() {
         <CategoryFilter />
 
         {/* Thêm danh mục  */}
-        <Button className="flex gap-3 w-full py-5">
-          <Plus className="size-5" />
-          <span className="capitalize">thêm danh mục</span>
-        </Button>
+        <NavLink to={"/admin/category/add"}>
+          <Button className="flex gap-3 w-full py-5">
+            <Plus className="size-5" />
+            <span className="capitalize">thêm danh mục</span>
+          </Button>
+        </NavLink>
 
         {/* Danh sách Mobile */}
         <div className="lg:hidden flex flex-col gap-8">

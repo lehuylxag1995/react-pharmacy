@@ -9,12 +9,12 @@ interface SidebarProps {
 export default function Sidebar({ isCollapsed }: SidebarProps) {
   return (
     <aside
-      className={`hidden md:flex flex-col h-full overflow-hidden border-r bg-sidebar text-sidebar-foreground shrink-0 transition-all duration-300 ease-in-out
+      className={`hidden md:flex h-full flex-col overflow-hidden border-r bg-sidebar text-sidebar-foreground shrink-0 transition-all duration-300 ease-in-out
           ${isCollapsed ? "w-0" : "md:w-50"}
           `}
     >
       {/* logo */}
-      <div className="h-16 flex items-center justify-center border-b gap-1">
+      <div className="h-16 flex items-center justify-center border-b gap-1 shrink-0">
         <div className="size-6 bg-sidebar-primary text-sidebar-primary-foreground rounded flex items-center justify-center font-bold text-sm">
           P
         </div>
@@ -49,7 +49,7 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
       <div className="p-3 border-t border-sidebar-border">
         <button className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-red-400 hover:bg-red-500/10 text-sm font-medium md:justify-center lg:justify-start">
           <LogOut className="size-4 shrink-0" />
-          <span className="hidden md:block">Đăng xuất</span>
+          <span className="hidden md:block font-semibold">Đăng xuất</span>
         </button>
       </div>
     </aside>

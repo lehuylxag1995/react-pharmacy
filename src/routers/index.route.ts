@@ -1,3 +1,4 @@
+import CategoryAddPage from "@/features/admin/category/add/category.page";
 import NotificationPage from "@/features/admin/notification/notification.page";
 import OrderPage from "@/features/admin/order/order.page";
 import ProductPage from "@/features/admin/product/product.page";
@@ -31,7 +32,12 @@ export const router = createBrowserRouter([
     Component: AdminLayout,
     children: [
       { index: true, Component: DashboardPage },
-      { path: "category", Component: CategoryPage },
+      {
+        path: "category",
+        Component: CategoryPage,
+      },
+      { path: "category/add", Component: CategoryAddPage },
+
       { path: "order", Component: OrderPage },
       { path: "product", Component: ProductPage },
       { path: "notification", Component: NotificationPage },

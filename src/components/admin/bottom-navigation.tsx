@@ -22,7 +22,7 @@ const navItems = [
 
 export default function BottomNavigation() {
   return (
-    <nav className="fixed bottom-0 left-0 h-16 right-0 z-50 px-2 w-full bg-background border-t flex items-center justify-around md:hidden ">
+    <nav className="fixed bottom-0 left-0 right-0 h-16 w-full shrink-0 z-50 bg-background border-t flex items-center justify-around md:hidden ">
       {navItems.map((item, index) => {
         return (
           <NavLink
@@ -34,12 +34,31 @@ export default function BottomNavigation() {
                 ${
                   isActive
                     ? "text-primary font-medium"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground"
                 }`
             }
           >
-            <item.icon className="size-5" />
-            <span className="text-[10px] tracking-tight">{item.label}</span>
+            {({ isActive }) => (
+              <>
+                <div
+                  className={`p-2 rounded-lg transition-colors ${
+                    isActive
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-transparent"
+                  }`}
+                >
+                  <item.icon className="size-5" />
+                </div>
+
+                <span
+                  className={`text-[10px] tracking-tight ${
+                    isActive ? "font-semibold" : ""
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </>
+            )}
           </NavLink>
         );
       })}

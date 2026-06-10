@@ -13,7 +13,7 @@ export default function Header({
   setIsSidebarCollapsed,
 }: HeaderProps) {
   return (
-    <header className="h-16 bg-sidebar text-sidebar-foreground border-b z-10 shadow  flex items-center justify-between px-4 ">
+    <header className="h-16 w-full bg-sidebar text-sidebar-foreground border-b shadow-md/5 flex items-center justify-between px-4 shrink-0 ">
       {/* menu + tên trang */}
       <div className="flex items-center gap-2 lg:gap-5">
         {/* Nút Menu cho Desktop */}
@@ -31,11 +31,6 @@ export default function Header({
         >
           <Menu className="size-5" />
         </button>
-
-        {/* tên trang */}
-        <h4 className="flex text-base font-semibold text-primary capitalize">
-          tổng quan
-        </h4>
       </div>
 
       {/* nút chức năng + avatar */}
@@ -68,12 +63,12 @@ export default function Header({
         </div>
 
         {/* avatar cho desktop */}
-        <div className="hidden md:flex items-center gap-1 border-l pl-4 md:gap-3 border-border">
+        <div className="hidden md:flex items-center gap-3 border-l pl-4">
           <Avatar className="size-8">
             <AvatarImage src="https://picsum.photos/200/300" />
             <AvatarFallback>LH</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col items-start  md:flex">
+          <div className="flex flex-col items-start">
             <span className="text-[13px] font-semibold leading-tight">
               Lê Huy Trúc Thuỷ
             </span>

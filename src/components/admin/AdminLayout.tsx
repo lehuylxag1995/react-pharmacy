@@ -13,7 +13,7 @@ export default function AdminLayout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="flex bg-background text-foreground h-screen w-screen overflow-hidden">
+    <div className="fixed inset-0 flex bg-background text-foreground overflow-hidden ">
       {/* Sidebar bản Desktop */}
       <Sidebar isCollapsed={isSidebarCollapsed} />
 
@@ -24,14 +24,14 @@ export default function AdminLayout() {
       />
 
       {/* content bên phải */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <Header
           isSidebarCollapsed={isSidebarCollapsed}
           setIsSidebarCollapsed={setIsSidebarCollapsed}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
         />
 
-        <main className="flex-1 pb-16 lg:pb-0 bg-background overflow-y-auto">
+        <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain bg-background pb-16 md:pb-0">
           <Outlet />
         </main>
 
