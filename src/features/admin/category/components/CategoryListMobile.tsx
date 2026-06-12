@@ -6,7 +6,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Eye, Package, Pencil, Trash2 } from "lucide-react";
+import { Eye, Package, Pencil } from "lucide-react";
+import CategoryDeleteModal from "./CategoryDeleteModal";
 import CategoryPagination from "./CategoryPagination";
 
 const categories = [
@@ -163,7 +164,11 @@ export default function CategoryListMobile() {
                         <Pencil />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent side="bottom" align="end">
+                    <DropdownMenuContent
+                      className="w-fit flex flex-col gap-1"
+                      side="bottom"
+                      align="end"
+                    >
                       <DropdownMenuItem>
                         <Eye />
                         Xem chi tiết
@@ -174,9 +179,8 @@ export default function CategoryListMobile() {
                         Chỉnh sửa
                       </DropdownMenuItem>
 
-                      <DropdownMenuItem className="text-destructive">
-                        <Trash2 />
-                        Xóa
+                      <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                        <CategoryDeleteModal />
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

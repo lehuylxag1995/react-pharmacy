@@ -1,4 +1,5 @@
-import CategoryAddPage from "@/features/admin/category/add/category.page";
+import CategoryAddSuccessPage from "@/features/admin/category/add/add-success.page";
+import CategoryAddPage from "@/features/admin/category/add/form-category.page";
 import NotificationPage from "@/features/admin/notification/notification.page";
 import OrderPage from "@/features/admin/order/order.page";
 import ProductPage from "@/features/admin/product/product.page";
@@ -15,7 +16,6 @@ import HomePage from "../features/user/home/home.page";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
     Component: UserLayout,
     children: [{ index: true, Component: HomePage }],
   },
@@ -36,7 +36,14 @@ export const router = createBrowserRouter([
         path: "category",
         Component: CategoryPage,
       },
-      { path: "category/add", Component: CategoryAddPage },
+      {
+        path: "category/add",
+        Component: CategoryAddPage,
+      },
+      {
+        path: "category/add/success",
+        Component: CategoryAddSuccessPage,
+      },
 
       { path: "order", Component: OrderPage },
       { path: "product", Component: ProductPage },

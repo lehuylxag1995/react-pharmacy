@@ -18,10 +18,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
-import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
 import z from "zod";
+import CategoryHeader from "../components/CategoryHeader";
 
 const formCreateCategory = z.object({
   parentId: z.number().nullable(),
@@ -38,6 +38,14 @@ const formCreateCategory = z.object({
 type CategoryForm = z.infer<typeof formCreateCategory>;
 
 export default function CategoryAddPage() {
+  const navigate = useNavigate();
+
+  function onSubmit(data: CategoryForm) {
+    // Chuyển trang
+    navigate("/admin/category/add/success");
+    console.log(data);
+  }
+
   const form = useForm<CategoryForm>({
     resolver: zodResolver(formCreateCategory),
     defaultValues: {
@@ -51,27 +59,17 @@ export default function CategoryAddPage() {
     },
   });
 
-  function onSubmit(data: CategoryForm) {
-    console.log(data);
-  }
-
   return (
     <>
-      <div className="flex items-center gap-5 font-bold text-primary text-[18px] p-4 bg-card">
-        <NavLink to={"/admin/category"}>
-          <div className="p-1">
-            <ArrowLeft className="size-5" />
-          </div>
-        </NavLink>
-        <span>Thêm danh mục</span>
-      </div>
+      <CategoryHeader route="/admin/category" />
 
       <hr />
 
-      <div className="px-4 py-3 flex flex-col bg-background text-foreground">
+      <div className="px-4 py-3 flex flex-col bg-card text-foreground">
         <form
           className="capitalize text-muted-foreground"
           onSubmit={form.handleSubmit(onSubmit)}
+          id="form-rhf-category"
         >
           <FieldGroup>
             <span className="text-foreground font-bold text-xl">
@@ -84,7 +82,9 @@ export default function CategoryAddPage() {
               render={({ field, fieldState }) => {
                 return (
                   <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor={field.name}>Tên danh mục</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>
+                      Tên danh mục <span className="text-destructive">*</span>
+                    </FieldLabel>
                     <Input
                       {...field}
                       id={field.name}
@@ -233,7 +233,7 @@ export default function CategoryAddPage() {
               >
                 Huỷ
               </Button>
-              <Button size={"lg"} type="submit">
+              <Button size={"lg"} type="submit" form="form-rhf-category">
                 Lưu danh mục
               </Button>
             </Field>
