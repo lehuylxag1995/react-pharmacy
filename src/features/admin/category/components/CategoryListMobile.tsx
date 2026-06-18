@@ -1,197 +1,122 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Eye, Package, Pencil } from "lucide-react";
-import CategoryDeleteModal from "./CategoryDeleteModal";
-import CategoryPagination from "./CategoryPagination";
+import {
+  EllipsisVertical,
+  Eye,
+  EyeOff,
+  Folder,
+  Pencil,
+  Trash,
+} from "lucide-react";
+import { NavLink } from "react-router";
+import type { ICategoryListItem } from "../category.api";
 
-const categories = [
+export const categories = [
   {
     id: 1,
-    name: "Thuốc giảm đau",
-    parent: "Thuốc",
-    productCount: 45,
-    status: Math.round(Math.random()),
+    parentId: null,
+    name: "Thuốc",
+    isActive: true,
+    childrenCount: 4,
   },
   {
     id: 2,
-    name: "Thuốc cảm cúm",
-    parent: "Thuốc",
-    productCount: 32,
-    status: Math.round(Math.random()),
+    parentId: null,
+    name: "Thực phẩm chức năng",
+    isActive: true,
+    childrenCount: 3,
   },
   {
     id: 3,
-    name: "Vitamin - Khoáng chất",
-    parent: "Thực phẩm chức năng",
-    productCount: 28,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 4,
-    name: "Siro - Kẹo ngậm",
-    parent: "Thuốc",
-    productCount: 18,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 5,
+    parentId: null,
     name: "Chăm sóc cá nhân",
-    parent: "Chăm sóc sức khỏe",
-    productCount: 56,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 6,
-    name: "Mẹ & Bé",
-    parent: "Chăm sóc sức khỏe",
-    productCount: 48,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 7,
-    name: "Thiết bị y tế",
-    parent: "Thiết bị y tế",
-    productCount: 25,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 8,
-    name: "Thuốc tiêu hóa",
-    parent: "Thuốc",
-    productCount: 37,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 9,
-    name: "Thuốc tim mạch",
-    parent: "Thuốc",
-    productCount: 21,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 10,
-    name: "Thuốc dị ứng",
-    parent: "Thuốc",
-    productCount: 19,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 11,
-    name: "Thuốc mắt",
-    parent: "Thuốc",
-    productCount: 14,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 12,
-    name: "Chăm sóc da",
-    parent: "Mỹ phẩm",
-    productCount: 63,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 13,
-    name: "Thực phẩm bổ não",
-    parent: "Thực phẩm chức năng",
-    productCount: 29,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 14,
-    name: "Hỗ trợ xương khớp",
-    parent: "Thực phẩm chức năng",
-    productCount: 34,
-    status: Math.round(Math.random()),
-  },
-  {
-    id: 15,
-    name: "Khẩu trang y tế",
-    parent: "Thiết bị y tế",
-    productCount: 12,
-    status: Math.round(Math.random()),
+    isActive: false,
+    childrenCount: 2,
   },
 ];
 
+interface CategoryListMobileProps {
+  data: ICategoryListItem[];
+}
+
 export default function CategoryListMobile() {
   return (
-    <div className="lg:hidden flex flex-col gap-5">
-      {/* danh sách */}
-      <div className="flex flex-col gap-3">
-        {categories?.map((c, i) => {
-          return (
-            <Card key={i} className="shadow-md">
-              <CardContent>
-                <div className="flex justify-between">
-                  <div className="flex gap-5">
-                    {/* STT */}
-                    <span className="text-base font-bold">{c.id}</span>
+    <div className="flex flex-col">
+      {categories?.map((c) => (
+        <div key={c.id} className="flex items-center w-full rounded-xl group">
+          <NavLink
+            to={`/admin/category/${c.id}`}
+            className={`flex items-center gap-3 flex-1 py-3 px-2 rounded-xl select-none transition-colors duration-150 active:bg-accent`}
+          >
+            <Folder
+              className="size-5 text-primary shrink-0"
+              strokeWidth={2.5}
+            />
 
-                    {/* thông tin danh mục */}
-                    <div className="flex flex-col gap-4 capitalize">
-                      <div className="flex flex-col gap-1">
-                        <span className="text-base font-bold">{c.name}</span>
-                        <span className="text-muted-foreground">
-                          danh mục cha: {c.parent}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-start gap-2 text-muted-foreground">
-                        <Package className="text-muted-foreground" />
-                        <span className="text-muted-foreground">
-                          {c.productCount} sản phẩm
-                        </span>
-                      </div>
+            <div className="flex flex-col flex-1 min-w-0">
+              <span className="font-bold text-base">{c.name}</span>
+              <span className="font-semibold text-xs text-muted-foreground">
+                {c.childrenCount} danh mục con
+              </span>
+            </div>
 
-                      <Button
-                        className={`${c.status ? "bg-accent text-accent-foreground" : "bg-secondary text-secondary-foreground"} px-3 py-2 size-fit capitalize`}
-                        variant={"outline"}
-                        size={"icon"}
-                      >
-                        {c.status ? "hiển thị" : "ẩn"}
-                      </Button>
+            {c.isActive ? (
+              <Badge className="shrink-0">Hiển thị</Badge>
+            ) : (
+              <Badge variant={"destructive"} className="shrink-0">
+                Ẩn
+              </Badge>
+            )}
+          </NavLink>
+
+          <div className="px-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <EllipsisVertical className="size-5 shrink-0 cursor-pointer" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-auto" align="end">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel>Chức năng</DropdownMenuLabel>
+                  <DropdownMenuItem className="py-3">
+                    <div className="flex items-center gap-3 font-semibold">
+                      <Pencil className="size-5 shrink-0" />
+                      <span className="whitespace-nowrap">Sửa danh mục</span>
                     </div>
-                  </div>
-
-                  {/* Chức năng */}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant={"outline"}>
-                        <Pencil />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-fit flex flex-col gap-1"
-                      side="bottom"
-                      align="end"
-                    >
-                      <DropdownMenuItem>
-                        <Eye />
-                        Xem chi tiết
-                      </DropdownMenuItem>
-
-                      <DropdownMenuItem>
-                        <Pencil />
-                        Chỉnh sửa
-                      </DropdownMenuItem>
-
-                      <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                        <CategoryDeleteModal />
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-
-      <CategoryPagination />
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="py-3">
+                    {c.isActive ? (
+                      <div className="flex items-center gap-3 text-warning font-semibold">
+                        <EyeOff className="size-5 shrink-0" />
+                        <span className="whitespace-nowrap">Ẩn danh mục</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3 text-warning font-semibold">
+                        <Eye className="size-5 shrink-0" />
+                        <span className="whitespace-nowrap">
+                          Hiển thị danh mục
+                        </span>
+                      </div>
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="py-3">
+                    <div className="flex items-center gap-3 text-destructive font-semibold">
+                      <Trash className="size-5 shrink-0" />
+                      <span className="whitespace-nowrap">Xoá danh mục</span>
+                    </div>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

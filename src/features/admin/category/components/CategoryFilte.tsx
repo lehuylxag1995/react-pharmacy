@@ -28,7 +28,7 @@ export function CategoryFilter() {
   return (
     <>
       {/* lọc theo tên */}
-      <InputGroup className="w-full py-5">
+      <InputGroup className="w-full">
         <InputGroupInput placeholder="Tìm kiếm danh mục..." />
         <InputGroupAddon>
           <Search />
@@ -38,7 +38,7 @@ export function CategoryFilter() {
       <div className="flex gap-3">
         {/* lọc theo trạng thái  */}
         <Select defaultValue="2">
-          <SelectTrigger className="w-2/3 py-5 ">
+          <SelectTrigger className="w-2/3 ">
             <SelectValue placeholder="Tất cả trạng thái" />
           </SelectTrigger>
           <SelectContent className="capitalize">
@@ -51,7 +51,7 @@ export function CategoryFilter() {
         {/* lọc nâng cao */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant={"outline"} className="flex-1 flex py-5">
+            <Button variant={"outline"} className="flex-1 flex">
               <Funnel />
               <span className="capitalize">bộ lọc</span>
             </Button>

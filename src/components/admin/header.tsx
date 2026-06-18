@@ -1,4 +1,4 @@
-import { Bell, ChevronDown, Mail, Menu, Search } from "lucide-react";
+import { Bell, ChevronDown, Mail, Menu } from "lucide-react";
 import { ModeToggle } from "../mode-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
@@ -13,7 +13,7 @@ export default function Header({
   setIsSidebarCollapsed,
 }: HeaderProps) {
   return (
-    <header className="h-16 w-full bg-sidebar text-sidebar-foreground border-b shadow-md/5 flex items-center justify-between px-4 shrink-0 ">
+    <header className="h-12 lg:h-16 w-full bg-sidebar text-sidebar-foreground border-b shadow-md/5 flex items-center justify-between px-4 shrink-0 ">
       {/* menu + tên trang */}
       <div className="flex items-center gap-2 lg:gap-5">
         {/* Nút Menu cho Desktop */}
@@ -37,8 +37,6 @@ export default function Header({
       <div className="flex items-center gap-5">
         {/* bộ 3 icon của header */}
         <ModeToggle />
-
-        <Search className="size-5 text-muted-foreground cursor-pointer hover:text-foreground" />
 
         <div className="relative cursor-pointer">
           <Bell className="size-5 text-muted-foreground hover:text-foreground" />
