@@ -14,10 +14,10 @@ const navItems = [
     badge: 0,
     path: "/admin",
   },
-  { icon: ShoppingBag, label: "Đơn hàng", badge: 0, path: "/admin/order" },
-  { icon: Box, label: "Sản phẩm", badge: 0, path: "/admin/product" },
-  { icon: Layers, label: "Danh mục", badge: 3, path: "/admin/category" },
-  { icon: MoreHorizontal, label: "Thêm", badge: 0, path: "/admin/add" },
+  { icon: ShoppingBag, label: "Đơn hàng", badge: 0, path: "/admin/orders" },
+  { icon: Box, label: "Sản phẩm", badge: 0, path: "/admin/products" },
+  { icon: Layers, label: "Danh mục", badge: 3, path: "/admin/categories" },
+  { icon: MoreHorizontal, label: "Thêm", badge: 0, path: "/admin/adds" },
 ];
 
 export default function BottomNavigation() {

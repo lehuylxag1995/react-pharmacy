@@ -61,7 +61,7 @@ export default function CategoryAddPage() {
 
   return (
     <>
-      <CategoryHeader route="/admin/category" />
+      <CategoryHeader route="/admin/categories" />
 
       <hr />
 
