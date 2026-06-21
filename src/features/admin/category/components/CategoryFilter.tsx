@@ -6,6 +6,15 @@ import {
 
 import { Button } from "@/components/ui/button";
 import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import {
   Select,
   SelectContent,
   SelectGroup,
@@ -14,14 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { Funnel, RotateCcw, Search } from "lucide-react";
 
 export function CategoryFilter() {
@@ -49,26 +50,21 @@ export function CategoryFilter() {
         </Select>
 
         {/* lọc nâng cao */}
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant={"outline"} className="flex-1 flex">
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button variant={"secondary"} className="flex-1 flex">
               <Funnel />
               <span className="capitalize">bộ lọc</span>
             </Button>
-          </SheetTrigger>
-          <SheetContent
-            side="bottom"
-            // Ngăn đóng khi bấm ra ngoài vùng đen (backdrop)
-            onPointerDownOutside={(e) => e.preventDefault()}
-          >
-            <SheetHeader className="capitalize">
-              <SheetTitle>Bộ lọc trạng thái</SheetTitle>
-              <SheetDescription>
-                lọc các thông tin bạn muốn hiển thị
-              </SheetDescription>
-            </SheetHeader>
+          </DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>Bộ lọc trạng thái</DrawerTitle>
+              <DrawerDescription>
+                Lọc các thông tin bạn muốn hiển thị
+              </DrawerDescription>
+            </DrawerHeader>
 
-            {/* content for feature filter */}
             <div className="flex flex-col gap-5 items-start justify-center px-5">
               {/* parent for category */}
               <div className="flex flex-col gap-3 w-full">
@@ -106,20 +102,20 @@ export function CategoryFilter() {
               </div>
 
               {/* actions */}
-              <div className="w-full grid grid-cols-2 gap-4 pt-4 pb-6">
-                <Button variant={"outline"}>
-                  <RotateCcw />
-                  <span className="capitalize">đặt lại</span>
-                </Button>
-
-                <Button>
-                  <Funnel />
-                  <span className="capitalize">áp dụng</span>
-                </Button>
-              </div>
             </div>
-          </SheetContent>
-        </Sheet>
+
+            <DrawerFooter>
+              <Button variant={"secondary"}>
+                <RotateCcw />
+                <span className="capitalize">đặt lại</span>
+              </Button>
+              <Button>
+                <Funnel />
+                <span className="capitalize">áp dụng</span>
+              </Button>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
       </div>
     </>
   );

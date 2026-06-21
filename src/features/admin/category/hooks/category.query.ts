@@ -4,12 +4,12 @@ import { categoryApi } from "../api/category.api";
 // Quản lý Query Key tập trung để dễ dàng xóa cache (invalidate)
 export const categoryKeys = {
   all: ["categories"] as const,
-  list: (id: number | null) => [...categoryKeys.all, "list", "id", id] as const,
+  list: (id?: number) => [...categoryKeys.all, "list", "id", id] as const,
   detail: (id: number) => [...categoryKeys.all, "detail", id] as const, // -> ["categories", "detail", 1]
 };
 
 // Hook lấy danh sách danh mục
-export const useGetCategories = ({ id }: { id: number | null }) => {
+export const useGetCategories = ({ id }: { id?: number }) => {
   return useQuery({
     queryKey: categoryKeys.list(id),
     queryFn: () => categoryApi.getCategories({ id }),

@@ -1,13 +1,18 @@
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import {
+  AlertCircleIcon,
   EllipsisVertical,
   Eye,
   EyeOff,
@@ -18,6 +23,7 @@ import {
 } from "lucide-react";
 import { NavLink, useSearchParams } from "react-router";
 import { useGetCategories } from "../hooks/category.query";
+import CategoryListEmpty from "./CategoryListEmpty";
 import CategorySkeleton from "./CategorySkeleton";
 
 export const categories = [
@@ -46,111 +52,159 @@ export const categories = [
 
 export default function CategoryListMobile() {
   const [searchParams] = useSearchParams();
-  const id = Number(searchParams.get("id")) || null;
+  const id = Number(searchParams.get("id")) || undefined;
 
-  const { data, isLoading, isError } = useGetCategories({ id });
+  const { data, isError, isLoading, error } = useGetCategories({ id });
 
   if (isLoading) return <CategorySkeleton />;
 
-  if (isError || !data) {
-    return <div>Không tìm thấy danh mục !!</div>;
+  if (isError) {
+    return (
+      <>
+        <span className="text-destructive bg-destructive/10 text-center rounded py-2 px-1">
+          {error.error.message}
+        </span>
+        {error.error.details?.map((e) => (
+          <Alert variant="destructive" className="w-full">
+            <AlertCircleIcon />
+            <AlertTitle>{e.field}</AlertTitle>
+            <AlertDescription>{e.message}</AlertDescription>
+          </Alert>
+        ))}
+      </>
+    );
   }
 
   return (
     <div className="flex flex-col">
-      {data.map((c) => {
-        // 1. Kiểm tra xem có danh mục con hay không
-        const hasChildren = c.childrenCount > 0;
+      {data?.data.length ? (
+        data?.data.map((c) => {
+          // 1. Kiểm tra xem có danh mục con hay không
+          const hasChildren = c.childrenCount > 0;
 
-        // 2. Tách phần ruột ra một biến riêng
-        const renderContent = () => (
-          <>
-            {(c.childrenCount && c.childrenCount > 0) || c.parentId === null ? (
-              <Folder
-                className="size-5 text-primary shrink-0"
-                strokeWidth={2.5}
-              />
-            ) : (
-              <ReceiptText
-                className="size-5 text-muted-foreground shrink-0"
-                strokeWidth={2.5}
-              />
-            )}
+          // 2. Tách phần ruột ra một biến riêng
+          const renderContent = () => (
+            <>
+              {(c.childrenCount && c.childrenCount > 0) ||
+              c.parentId === null ? (
+                <Folder
+                  className="size-5 text-primary shrink-0"
+                  strokeWidth={2.5}
+                />
+              ) : (
+                <ReceiptText
+                  className="size-5 text-muted-foreground shrink-0"
+                  strokeWidth={2.5}
+                />
+              )}
 
-            <div className={`flex flex-col flex-1 min-w-0`}>
-              <span className="font-bold text-base">{c.name}</span>
-              <span className={`font-semibold text-xs text-muted-foreground `}>
-                {c.childrenCount > 0 ? `${c.childrenCount} danh mục con` : ""}
-              </span>
-            </div>
-
-            {c.isActive ? (
-              <Badge className="shrink-0">Hiển thị</Badge>
-            ) : (
-              <Badge variant={"destructive"} className="shrink-0">
-                Ẩn
-              </Badge>
-            )}
-          </>
-        );
-
-        return (
-          <div key={c.id} className="flex items-center w-full rounded-xl">
-            {hasChildren ? (
-              <NavLink
-                to={`/admin/categories?id=${c.id}`}
-                className="flex items-center gap-3 flex-1 py-3 px-2 rounded-xl select-none transition-colors duration-150 active:bg-accent cursor-pointer"
-              >
-                {renderContent()}
-              </NavLink>
-            ) : (
-              <div className="flex items-center gap-3 flex-1 py-3 px-2 rounded-xl select-none transition-colors duration-150 cursor-default opacity-80">
-                {renderContent()}
+              <div className={`flex flex-col flex-1 min-w-0`}>
+                <span className="font-bold text-base">{c.name}</span>
+                <span
+                  className={`font-semibold text-xs text-muted-foreground `}
+                >
+                  {c.childrenCount > 0 ? `${c.childrenCount} danh mục con` : ""}
+                </span>
               </div>
-            )}
 
-            <div className="px-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <EllipsisVertical className="size-5 shrink-0 cursor-pointer" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-auto" align="end">
-                  <DropdownMenuGroup>
-                    <DropdownMenuLabel>Chức năng</DropdownMenuLabel>
-                    <DropdownMenuItem className="py-3">
-                      <div className="flex items-center gap-3 font-semibold">
-                        <Pencil className="size-5 shrink-0" />
-                        <span className="whitespace-nowrap">Sửa danh mục</span>
-                      </div>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="py-3">
-                      {c.isActive ? (
-                        <div className="flex items-center gap-3 text-warning font-semibold">
-                          <EyeOff className="size-5 shrink-0" />
-                          <span className="whitespace-nowrap">Ẩn danh mục</span>
+              {c.isActive ? (
+                <Badge className="shrink-0">Hiển thị</Badge>
+              ) : (
+                <Badge variant={"destructive"} className="shrink-0">
+                  Ẩn
+                </Badge>
+              )}
+            </>
+          );
+
+          return (
+            <div key={c.id} className="flex items-center w-full rounded-xl">
+              {hasChildren ? (
+                <NavLink
+                  to={`/admin/categories?id=${c.id}`}
+                  className="flex items-center gap-3 flex-1 py-3 px-2 rounded-xl select-none transition-colors duration-150 active:bg-accent cursor-pointer"
+                >
+                  {renderContent()}
+                </NavLink>
+              ) : (
+                <div className="flex items-center gap-3 flex-1 py-3 px-2 rounded-xl select-none transition-colors duration-150 cursor-default opacity-80">
+                  {renderContent()}
+                </div>
+              )}
+
+              <div className="px-2 py-1 border border-secondary rounded-md">
+                <Drawer>
+                  <DrawerTrigger asChild>
+                    <EllipsisVertical className="size-5 shrink-0 cursor-pointer text-secondary-foreground" />
+                  </DrawerTrigger>
+                  <DrawerContent>
+                    <DrawerHeader>
+                      <DrawerTitle className="font-bold text-2xl text-left uppercase">
+                        Chức năng
+                      </DrawerTitle>
+                      <DrawerDescription className="font-medium text-left">
+                        Thao tác danh mục
+                      </DrawerDescription>
+                    </DrawerHeader>
+
+                    <div className="flex flex-col w-full px-3 gap-2">
+                      <div className="bg-info/20 text-info-foreground rounded-xl border border-info/30 p-2 flex items-center gap-2">
+                        <div className="size-8 bg-white rounded-md flex items-center justify-center">
+                          <Pencil className="size-5 shrink-0 text-info" />
                         </div>
-                      ) : (
-                        <div className="flex items-center gap-3 text-warning font-semibold">
-                          <Eye className="size-5 shrink-0" />
-                          <span className="whitespace-nowrap">
-                            Hiển thị danh mục
-                          </span>
-                        </div>
-                      )}
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="py-3">
-                      <div className="flex items-center gap-3 text-destructive font-semibold">
-                        <Trash className="size-5 shrink-0" />
-                        <span className="whitespace-nowrap">Xoá danh mục</span>
+                        <span className=" text-info font-medium text-base whitespace-nowrap">
+                          Sửa danh mục
+                        </span>
                       </div>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
+
+                      <div className="bg-warning/20 text-info-foreground rounded-xl border border-warning/30 p-2 flex items-center gap-2">
+                        {c.isActive ? (
+                          <>
+                            <div className="size-8 bg-white rounded-md flex items-center justify-center">
+                              <EyeOff className="size-5 shrink-0 text-warning" />
+                            </div>
+                            <span className=" text-warning font-medium text-base whitespace-nowrap">
+                              Ẩn danh mục
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <div className="size-8 bg-white rounded-md flex items-center justify-center">
+                              <Eye className="size-5 shrink-0 text-info" />
+                            </div>
+                            <span className=" text-warning font-medium text-base whitespace-nowrap">
+                              Hiển thị danh mục
+                            </span>
+                          </>
+                        )}
+                      </div>
+
+                      <div className="bg-destructive/20 text-destructive-foreground rounded-xl border border-destructive/30 p-2 flex items-center gap-2">
+                        <div className="size-8 bg-white rounded-md flex items-center justify-center">
+                          <Trash className="size-5 shrink-0 text-destructive" />
+                        </div>
+                        <span className="text-destructive font-medium text-base whitespace-nowrap">
+                          Xoá danh mục
+                        </span>
+                      </div>
+                    </div>
+
+                    <DrawerFooter>
+                      <DrawerClose asChild>
+                        <Button className="rounded-xl" variant="secondary">
+                          Thoát
+                        </Button>
+                      </DrawerClose>
+                    </DrawerFooter>
+                  </DrawerContent>
+                </Drawer>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ) : (
+        <CategoryListEmpty />
+      )}
     </div>
   );
 }
