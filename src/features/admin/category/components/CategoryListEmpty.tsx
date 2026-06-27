@@ -1,14 +1,5 @@
 import { Folder } from "lucide-react";
 
-interface IErrorAlert {
-  code?: string;
-  message: string;
-  details?: {
-    field: string;
-    message: string;
-  }[];
-}
-
 export default function CategoryListEmpty() {
   return (
     <div className="min-h-[40vh] w-full flex flex-col items-center justify-center gap-3">

@@ -1,12 +1,16 @@
 import { axiosClient } from "@/configs/axios.config";
-import type { ICategoryListItem } from "@/interfaces/category.interface";
+import type {
+  ICategoryListItem,
+  IGetCategoriesParams,
+} from "@/interfaces/category.interface";
 import type { ApiSuccess } from "@/types/backend.type";
 
 export const categoryApi = {
   // Trả về danh sách danh mục với id
-  getCategories: async ({ id }: { id?: number }) => {
+  getCategories: async (params: IGetCategoriesParams) => {
     const response = await axiosClient.get<ApiSuccess<ICategoryListItem[]>>(
-      `/categories?id=${id}`,
+      `/categories`,
+      { params },
     );
     return response.data;
   },

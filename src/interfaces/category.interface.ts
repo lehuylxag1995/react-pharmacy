@@ -21,3 +21,10 @@ export interface ICategoryListItem {
   isActive: boolean;
   childrenCount: number;
 }
+
+export interface IGetCategoriesParams {
+  id?: number;
+  search?: string;
+  status?: number;
+  sortBy?: number;
+}

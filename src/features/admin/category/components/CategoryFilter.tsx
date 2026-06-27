@@ -4,119 +4,109 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 
-import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Funnel, RotateCcw, Search } from "lucide-react";
+import { Search } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
+import { useDebounce } from "use-debounce";
 
 export function CategoryFilter() {
+  // sử dụng react-router để lấy tham số trên URL
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // lấy các tham số trên url hiện tại
+  const searchParam = searchParams.get("search") || "";
+  const statusParam = searchParams.get("status") || "3";
+  const sortByParam = searchParams.get("sortBy") || "1";
+
+  // tạo state cho search
+  const [searchName, setSearchName] = useState(searchParam);
+
+  // hook để người dùng gõ xong mới cập nhật lên URL
+  const [debouncedSearchName] = useDebounce(searchName, 500);
+
+  // dựa vào URL cập nhật state
+  useEffect(() => {
+    setSearchName(searchParam);
+  }, [searchParam]);
+
+  // Chờ debounced xong thì cập nhật URL lại tìm kiếm theo tên
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+
+    if (debouncedSearchName) {
+      params.set("search", debouncedSearchName);
+    } else {
+      params.delete("search");
+    }
+
+    setSearchParams(params, { replace: true });
+  }, [debouncedSearchName]);
+
+  // lọc theo trạng thái
+  const handleStatusChange = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+
+    params.delete("status");
+    if (value !== "3") params.set("status", value);
+
+    setSearchParams(params, { replace: true });
+  };
+
+  // lọc theo thự tự
+  const handleOrderChange = (value: string) => {
+    const params = new URLSearchParams(searchParams);
+
+    params.delete("sortBy");
+    if (value !== "1") params.set("sortBy", value);
+
+    setSearchParams(params, { replace: true });
+  };
+
   return (
-    <>
+    <div className="flex flex-col gap-2">
       {/* lọc theo tên */}
       <InputGroup className="w-full">
-        <InputGroupInput placeholder="Tìm kiếm danh mục..." />
+        <InputGroupInput
+          value={searchName}
+          onChange={(e) => setSearchName(e.target.value)}
+          placeholder="Tìm kiếm danh mục..."
+        />
         <InputGroupAddon>
           <Search />
         </InputGroupAddon>
       </InputGroup>
 
-      <div className="flex gap-3">
-        {/* lọc theo trạng thái  */}
-        <Select defaultValue="2">
-          <SelectTrigger className="w-2/3 ">
+      <div className="flex gap-2">
+        {/* trạng thái  */}
+        <Select value={statusParam} onValueChange={handleStatusChange}>
+          <SelectTrigger className="w-1/2">
             <SelectValue placeholder="Tất cả trạng thái" />
           </SelectTrigger>
           <SelectContent className="capitalize">
-            <SelectItem value="2">Tất cả trạng thái</SelectItem>
+            <SelectItem value="3">Tất cả trạng thái</SelectItem>
             <SelectItem value="1">Hiển thị</SelectItem>
-            <SelectItem value="0">Ẩn</SelectItem>
+            <SelectItem value="2">Ẩn</SelectItem>
           </SelectContent>
         </Select>
 
-        {/* lọc nâng cao */}
-        <Drawer>
-          <DrawerTrigger asChild>
-            <Button variant={"secondary"} className="flex-1 flex">
-              <Funnel />
-              <span className="capitalize">bộ lọc</span>
-            </Button>
-          </DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>Bộ lọc trạng thái</DrawerTitle>
-              <DrawerDescription>
-                Lọc các thông tin bạn muốn hiển thị
-              </DrawerDescription>
-            </DrawerHeader>
-
-            <div className="flex flex-col gap-5 items-start justify-center px-5">
-              {/* parent for category */}
-              <div className="flex flex-col gap-3 w-full">
-                <span className="capitalize font-bold text-base">
-                  danh mục cha
-                </span>
-                <Select>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Chọn danh mục cha" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Thuốc</SelectLabel>
-                      <SelectItem value="1">Thuốc giảm đau</SelectItem>
-                      <SelectItem value="2">Thuốc cảm cúm</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* order by name */}
-              <div className="flex flex-col gap-3 w-full">
-                <span className="capitalize font-bold text-base">
-                  sắp xếp theo
-                </span>
-                <Select>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Tên danh mục (A-Z)" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">Từ A - Z </SelectItem>
-                    <SelectItem value="2">Từ Z - A </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* actions */}
-            </div>
-
-            <DrawerFooter>
-              <Button variant={"secondary"}>
-                <RotateCcw />
-                <span className="capitalize">đặt lại</span>
-              </Button>
-              <Button>
-                <Funnel />
-                <span className="capitalize">áp dụng</span>
-              </Button>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+        {/* sắp xếp */}
+        <Select value={sortByParam} onValueChange={handleOrderChange}>
+          <SelectTrigger className="w-1/2">
+            <SelectValue placeholder="Sắp xếp" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="1">Từ A - Z </SelectItem>
+            <SelectItem value="2">Từ Z - A </SelectItem>
+          </SelectContent>
+        </Select>
       </div>
-    </>
+    </div>
   );
 }

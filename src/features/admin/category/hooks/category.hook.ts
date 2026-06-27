@@ -1,18 +1,21 @@
+import type { IGetCategoriesParams } from "@/interfaces/category.interface";
 import { useQuery } from "@tanstack/react-query";
 import { categoryApi } from "../api/category.api";
 
 // Quản lý Query Key tập trung để dễ dàng xóa cache (invalidate)
 export const categoryKeys = {
   all: ["categories"] as const,
-  list: (id?: number) => [...categoryKeys.all, "list", "id", id] as const,
+  list: (filters: IGetCategoriesParams) =>
+    [...categoryKeys.all, "list", filters] as const,
   detail: (id: number) => [...categoryKeys.all, "detail", id] as const, // -> ["categories", "detail", 1]
 };
 
 // Hook lấy danh sách danh mục
-export const useGetCategories = ({ id }: { id?: number }) => {
+export const useGetCategories = (params: IGetCategoriesParams) => {
   return useQuery({
-    queryKey: categoryKeys.list(id),
-    queryFn: () => categoryApi.getCategories({ id }),
+    queryKey: categoryKeys.list(params),
+    queryFn: () => categoryApi.getCategories(params),
+    retry: false,
   });
 };
 

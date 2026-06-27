@@ -9,6 +9,7 @@ export const axiosClient: AxiosInstance = axios.create({
   },
 });
 
+//Interceptor của axios
 export const axiosResponseInterceptor = axiosClient.interceptors.response.use(
   // 1. Xử lý khi API thành công (Status 2xx)
   (response: AxiosResponse) => response,
@@ -28,8 +29,8 @@ export const axiosResponseInterceptor = axiosClient.interceptors.response.use(
     const fallbackError: ApiError = {
       success: false,
       error: {
-        code: "NETWORK_ERROR",
-        message: "Axios - Interceptor không nhận được response từ Server !!!",
+        code: "AXIOS_UNDEFINED",
+        message: "Axios - Interceptor không xác định được lỗi !!!",
       },
     };
     return Promise.reject(fallbackError);
