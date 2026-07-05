@@ -22,7 +22,7 @@ import {
   Trash,
 } from "lucide-react";
 import { NavLink, useSearchParams } from "react-router";
-import { useGetCategories } from "../hooks/category.hook";
+import { useGetCategoryWithQueries } from "../hooks/category.hook";
 import CategoryListEmpty from "./CategoryListEmpty";
 import CategorySkeleton from "./CategorySkeleton";
 
@@ -58,7 +58,7 @@ export default function CategoryListMobile() {
   const statusParam = Number(searchParams.get("status")) || 3;
   const sortByParam = Number(searchParams.get("sortBy")) || 1;
 
-  const { data, isError, isLoading, error } = useGetCategories({
+  const { data, isError, isLoading, error } = useGetCategoryWithQueries({
     id: idParam,
     search: searchParam,
     sortBy: sortByParam,

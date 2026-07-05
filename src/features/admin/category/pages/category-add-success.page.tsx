@@ -1,10 +1,30 @@
+import { Button } from "@/components/ui/button";
+import { format } from "date-fns";
 import { Check } from "lucide-react";
+import { Link, useLocation } from "react-router";
 import CategoryHeader from "../components/CategoryHeader";
+import type { CreateCategoryTypeResponse } from "../schemas/category.schema";
 
 export default function CategoryAddSuccessPage() {
+  let location = useLocation();
+
+  const category = location.state?.newCategory as CreateCategoryTypeResponse;
+
+  if (!category) {
+    return (
+      <div className="p-8 text-center">
+        <Button>
+          <Link to="/admin/categories/add">Quay lại trang thêm</Link>
+        </Button>
+      </div>
+    );
+  }
+
+  const formatDate = format(category.createdAt, "dd-MM-yyyy");
+
   return (
     <>
-      <CategoryHeader route="/admin/category/add" />
+      <CategoryHeader route="/admin/categories/add" />
 
       <hr />
 
@@ -17,8 +37,7 @@ export default function CategoryAddSuccessPage() {
               Thêm danh mục thành công
             </h3>
             <p className="text-center text-pretty text-muted-foreground text-sm">
-              Danh mục{" "}
-              <span className="font-semibold">"Vitamin và khoáng chất"</span> đã
+              Danh mục <span className="font-semibold">{category.name}</span> đã
               được tạo thành công
             </p>
           </div>
@@ -33,31 +52,33 @@ export default function CategoryAddSuccessPage() {
         <div className="grid grid-cols-2 gap-3">
           <span className="text-foreground font-semibold">Tên danh mục</span>
           <span className="text-right font-medium text-muted-foreground">
-            Vitamin và khoáng chất
+            {category.name}
           </span>
 
           <span className="text-foreground font-semibold">Danh mục cha</span>
           <span className="text-right font-medium text-muted-foreground">
-            Thực phẩm chức năng
+            {category.parentName}
           </span>
 
           <span className="text-foreground font-semibold">Mô tả</span>
-          <span className="text-pretty font-medium text-muted-foreground">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-            eos quas, perferendis obcaecati provident, perspiciatis officia
-            culpa non repellat, molestias facere neque consequatur impedit!
-            Similique voluptatibus nisi nesciunt blanditiis voluptas?
+          <span className="text-right font-medium text-muted-foreground">
+            {category.description}
           </span>
 
           <span className="text-foreground font-semibold">Thứ tự hiển thị</span>
           <span className="text-right font-medium text-muted-foreground">
-            3
+            {category.sortOrder}
+          </span>
+
+          <span className="text-foreground font-semibold">Ngày tạo</span>
+          <span className="text-right font-medium text-muted-foreground">
+            {formatDate}
           </span>
 
           <span className="text-foreground font-semibold">Trạng thái</span>
           <span className="text-right font-medium text-muted-foreground">
             <span className="bg-accent text-accent-foreground px-2 py-1 rounded border border-primary text-sm">
-              Hiển thị
+              {category.isActive ? "Hiển thị" : "Ẩn"}
             </span>
           </span>
         </div>

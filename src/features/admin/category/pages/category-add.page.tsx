@@ -1,11 +1,9 @@
 import { Button } from "@/components/ui/button";
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -20,41 +18,43 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import z from "zod";
 import CategoryHeader from "../components/CategoryHeader";
-
-const formCreateCategory = z.object({
-  parentId: z.number().nullable(),
-  name: z.string().min(1, "Bạn chưa nhập tên danh mục").toLowerCase().trim(),
-  description: z.string().trim(),
-  iconUrl: z.string().trim(),
-  imageUrl: z.string().trim(),
-  sortOrder: z
-    .number("Dữ liệu phải là kiểu số")
-    .min(0, "Thứ tự hiển thị luôn là số dương"),
-  isActive: z.boolean(),
-});
-
-type CategoryForm = z.infer<typeof formCreateCategory>;
+import { CategorySelectItemRecursive } from "../components/CategorySelectRecursive";
+import { useCreateCategory, useGetCategories } from "../hooks/category.hook";
+import {
+  CreateCategorySchema,
+  type CreateCategoryType,
+} from "../schemas/category.schema";
 
 export default function CategoryAddPage() {
+  const { data, isLoading } = useGetCategories();
+  const mutation = useCreateCategory();
+  const categories = data?.data;
   const navigate = useNavigate();
 
-  function onSubmit(data: CategoryForm) {
-    // Chuyển trang
-    navigate("/admin/category/add/success");
-    console.log(data);
+  function onSubmit(data: CreateCategoryType) {
+    mutation.mutate(data, {
+      onSuccess: (response) => {
+        form.reset();
+        // Chuyển trang
+        navigate("/admin/categories/add/success", {
+          state: {
+            newCategory: response.data,
+          },
+        });
+      },
+      onError: (error) => {
+        alert(`React Query: ${error.error.message}`);
+      },
+    });
   }
 
-  const form = useForm<CategoryForm>({
-    resolver: zodResolver(formCreateCategory),
+  const form = useForm<CreateCategoryType>({
+    resolver: zodResolver(CreateCategorySchema),
     defaultValues: {
-      parentId: null,
+      parentId: "root",
       name: "",
       description: "",
-      iconUrl: "",
-      imageUrl: "",
-      sortOrder: 0,
       isActive: true,
     },
   });
@@ -66,11 +66,7 @@ export default function CategoryAddPage() {
       <hr />
 
       <div className="px-4 py-3 flex flex-col bg-card text-foreground">
-        <form
-          className="capitalize text-muted-foreground"
-          onSubmit={form.handleSubmit(onSubmit)}
-          id="form-rhf-category"
-        >
+        <form className="capitalize" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <span className="text-foreground font-bold text-xl">
               Thông tin danh mục
@@ -118,8 +114,20 @@ export default function CategoryAddPage() {
                       <SelectValue placeholder="Chọn danh mục cha" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="root">Không có thư mục cha</SelectItem>
-                      <SelectItem value="1">thuoc</SelectItem>
+                      <SelectItem value="root">Thư mục cha</SelectItem>
+                      {isLoading && (
+                        <div className="p-2 text-sm text-muted-foreground">
+                          Đang tải...
+                        </div>
+                      )}
+
+                      {!isLoading && categories && (
+                        <CategorySelectItemRecursive
+                          categories={categories}
+                          char=""
+                          parentId={null}
+                        />
+                      )}
                     </SelectContent>
                   </Select>
                 </Field>
@@ -195,35 +203,6 @@ export default function CategoryAddPage() {
               }}
             />
 
-            <FieldSeparator className="py-2" />
-
-            <span className="text-foreground font-bold text-xl">
-              thông tin khác
-            </span>
-
-            <Controller
-              name="sortOrder"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Thứ tự hiển thị</FieldLabel>
-                  <Input
-                    {...field}
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                    type="number"
-                    placeholder="Nhập thứ tự (số)"
-                    className="text-foreground"
-                    onChange={(e) => field.onChange(e.target.valueAsNumber)}
-                  />
-                  <FieldDescription>Số nhỏ hiển thị trước</FieldDescription>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-
             <Field orientation="horizontal" className="grid grid-cols-2">
               <Button
                 type="button"
@@ -233,7 +212,7 @@ export default function CategoryAddPage() {
               >
                 Huỷ
               </Button>
-              <Button size={"lg"} type="submit" form="form-rhf-category">
+              <Button size={"lg"} type="submit">
                 Lưu danh mục
               </Button>
             </Field>

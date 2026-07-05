@@ -2,11 +2,9 @@ export interface ICategory {
   id: number;
   parentId: number | null;
   name: string;
-  slug?: string;
+  slug: string;
   description?: string | null;
-  iconUrl?: string | null;
-  imageUrl?: string | null;
-  sortOrder?: number;
+  sortOrder: number;
   isActive: boolean;
   metaTitle?: string | null;
   metaDescription?: string | null;
@@ -22,9 +20,14 @@ export interface ICategoryListItem {
   childrenCount: number;
 }
 
-export interface IGetCategoriesParams {
+export interface IGetCategoryQueries {
   id?: number;
   search?: string;
   status?: number;
   sortBy?: number;
 }
+
+export interface ICategorySelect extends Pick<
+  ICategory,
+  "id" | "name" | "parentId" | "slug" | "description" | "sortOrder" | "isActive"
+> {}

@@ -7,10 +7,21 @@ export const CategorySchema = z.object({
   name: z.string(),
   slug: z.string(),
   description: z.string().nullable(),
-  iconUrl: z.string().nullable(),
-  imageUrl: z.string().nullable(),
   sortOrder: z.number(),
   isActive: z.boolean(),
 });
 
 export type CategoryType = z.infer<typeof CategorySchema>;
+
+// Them moi
+export const CreateCategorySchema = z.object({
+  parentId: z.string(),
+  name: z.string().min(1, "Bạn chưa nhập tên danh mục").toLowerCase().trim(),
+  description: z.string().trim(),
+  isActive: z.boolean(),
+});
+export type CreateCategoryType = z.infer<typeof CreateCategorySchema>;
+export type CreateCategoryTypeResponse = CategoryType & {
+  parentName: string;
+  createdAt: string;
+};
