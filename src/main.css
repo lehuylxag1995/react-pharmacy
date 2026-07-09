@@ -227,3 +227,15 @@
     @apply font-sans;
   }
 }
+
+@keyframes toast-progress {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+.toast-progress {
+  animation: toast-progress 4s linear forwards;
+}

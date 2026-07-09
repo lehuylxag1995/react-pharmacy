@@ -152,7 +152,7 @@ export default function CategoryListMobile() {
                 </DrawerHeader>
 
                 <div className="flex flex-col w-full px-3 gap-2">
-                  <div className="bg-info/20 text-info-foreground rounded-xl border border-info/30 p-2 flex items-center gap-2">
+                  <div className="bg-info/20 text-info-foreground rounded-xl border border-info/30 p-2 flex items-center gap-2 cursor-pointer">
                     <div className="size-8 bg-white rounded-md flex items-center justify-center">
                       <Pencil className="size-5 shrink-0 text-info" />
                     </div>

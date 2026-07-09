@@ -1,5 +1,5 @@
 import { LogOut } from "lucide-react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { menuItems } from "./menu-item";
 
 interface SidebarProps {
@@ -14,14 +14,16 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
           `}
     >
       {/* logo */}
-      <div className="h-16 flex items-center justify-center border-b gap-1 shrink-0">
-        <div className="size-6 bg-sidebar-primary text-sidebar-primary-foreground rounded flex items-center justify-center font-bold text-sm">
-          P
+      <Link to={"/admin"}>
+        <div className="h-16 flex items-center justify-center border-b gap-1 shrink-0 ">
+          <div className="size-6 bg-sidebar-primary text-sidebar-primary-foreground rounded flex items-center justify-center font-bold text-sm">
+            P
+          </div>
+          <span className="font-bold text-lg text-sidebar-foreground hidden md:block">
+            PharmaShop
+          </span>
         </div>
-        <span className="font-bold text-lg text-sidebar-foreground hidden md:block">
-          PharmaShop
-        </span>
-      </div>
+      </Link>
 
       {/* Danh sách Menu Items */}
       <nav className="flex-1 p-3 space-y-1 overflow-y-auto">

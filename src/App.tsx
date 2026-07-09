@@ -12,7 +12,7 @@ function App() {
       {/* <ReactQueryDevtools initialIsOpen={true} buttonPosition="relative" /> */}
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
-        <Toaster />
+        <Toaster position="top-right" />
       </ThemeProvider>
     </QueryClientProvider>
   );
