@@ -1,5 +1,5 @@
 import { axiosClient } from "@/configs/axios.config";
-import type { IBreadcrumb } from "@/interfaces/breadcrumb.interface";
+import type { IBreadcrumb } from "@/features/admin/breadcrumb/interfaces/breadcrumb.interface";
 import type { ApiSuccess } from "@/types/backend.type";
 
 export const breadcrumbApi = {

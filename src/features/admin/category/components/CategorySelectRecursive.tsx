@@ -1,5 +1,5 @@
 import { SelectItem } from "@/components/ui/select";
-import type { ICategorySelect } from "@/interfaces/category.interface";
+import type { ICategorySelect } from "@/features/admin/category/interfaces/category.interface";
 import React from "react";
 
 export function CategorySelectItemRecursive({

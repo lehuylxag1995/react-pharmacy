@@ -1,15 +1,19 @@
 import { ArrowLeft } from "lucide-react";
 import { NavLink } from "react-router";
 
-export default function CategoryHeader({ route }: { route: string }) {
+export default function CategoryHeader({
+  route,
+  title,
+}: {
+  route: string;
+  title: string;
+}) {
   return (
-    <div className="w-full flex items-center gap-3 font-bold text-primary text-lg p-3 bg-card">
-      <NavLink to={route}>
-        <div className="p-1">
-          <ArrowLeft className="size-5" />
-        </div>
-      </NavLink>
-      <span>Thêm danh mục</span>
-    </div>
+    <NavLink to={route}>
+      <div className="w-full flex items-center gap-2 font-bold text-primary text-lg bg-card py-3">
+        <ArrowLeft className="size-5" />
+        <span>{title}</span>
+      </div>
+    </NavLink>
   );
 }

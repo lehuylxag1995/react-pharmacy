@@ -1,18 +1,16 @@
 import { axiosClient } from "@/configs/axios.config";
 import type {
   ICategoryListItem,
-  ICategorySelect,
+  ICategoryPublic,
+  ICategoryWithParentName,
   IGetCategoryQueries,
-} from "@/interfaces/category.interface";
+} from "@/features/admin/category/interfaces/category.interface";
 import type { ApiSuccess } from "@/types/backend.type";
-import type {
-  CreateCategoryType,
-  CreateCategoryTypeResponse,
-} from "../schemas/category.schema";
+import type { CreateCategoryType } from "../schemas/category.schema";
 
 export const categoryApi = {
   // Trả về danh sách danh mục với các queries
-  getCategoryWithQuery: async (queries: IGetCategoryQueries) => {
+  getList: async (queries: IGetCategoryQueries) => {
     const response = await axiosClient.get<ApiSuccess<ICategoryListItem[]>>(
       `/categories`,
       { params: queries },
@@ -21,20 +19,22 @@ export const categoryApi = {
   },
 
   // Trả về một danh mục theo ID
-  getCategoryById: async (id: number) => {
-    const response = await axiosClient.get(`/categories/${id}`);
+  getById: async (id: number) => {
+    const response = await axiosClient.get<ApiSuccess<ICategoryPublic>>(
+      `/categories/${id}`,
+    );
     return response.data;
   },
 
-  getCategories: async () => {
+  getAll: async () => {
     const response =
-      await axiosClient.get<ApiSuccess<ICategorySelect[]>>(`/categories/all`);
+      await axiosClient.get<ApiSuccess<ICategoryPublic[]>>(`/categories/all`);
     return response.data;
   },
 
-  createCategory: async (data: CreateCategoryType) => {
+  create: async (data: CreateCategoryType) => {
     const response = await axiosClient.post<
-      ApiSuccess<CreateCategoryTypeResponse>
+      ApiSuccess<ICategoryWithParentName>
     >(`/categories`, data);
     return response.data;
   },

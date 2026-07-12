@@ -21,7 +21,7 @@ export function CategoryFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // lấy các tham số trên url hiện tại
-  const searchParam = searchParams.get("search") || "";
+  const searchParam = searchParams.get("name") || "";
   const statusParam = searchParams.get("status") || "3";
   const sortByParam = searchParams.get("sortBy") || "1";
 
@@ -41,9 +41,9 @@ export function CategoryFilter() {
     const params = new URLSearchParams(searchParams);
 
     if (debouncedSearchName) {
-      params.set("search", debouncedSearchName);
+      params.set("name", debouncedSearchName);
     } else {
-      params.delete("search");
+      params.delete("name");
     }
 
     setSearchParams(params, { replace: true });

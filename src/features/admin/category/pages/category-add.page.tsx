@@ -2,11 +2,11 @@ import { toastCustom } from "@/components/ui/toast";
 import { useNavigate } from "react-router";
 import CategoryForm from "../components/CategoryForm";
 import CategoryHeader from "../components/CategoryHeader";
-import { useCreateCategory, useGetCategories } from "../hooks/category.hook";
+import { useCategorySelect, useCreateCategory } from "../hooks/category.hook";
 import { type CreateCategoryType } from "../schemas/category.schema";
 
 export default function CategoryAddPage() {
-  const { data, isLoading } = useGetCategories();
+  const { data, isLoading } = useCategorySelect();
   const { mutate, error: mutationError } = useCreateCategory();
   const navigate = useNavigate();
 
@@ -26,21 +26,21 @@ export default function CategoryAddPage() {
   }
 
   return (
-    <>
-      <CategoryHeader route="/admin/categories" />
+    <div className="m-4 rounded-2xl shadow bg-card text-card-foreground ">
+      <div className="px-4 py-3">
+        <CategoryHeader route="/admin/categories" title="Quay về danh sách" />
 
-      <hr />
-
-      <div className="px-4 py-3 flex flex-col bg-card text-foreground">
-        <CategoryForm
-          onSubmit={handleSubmit}
-          onCancel={() => navigate("/admin/categories")}
-          submitText="Lưu danh mục"
-          categories={data?.data}
-          isLoadingCategories={isLoading}
-          apiError={mutationError}
-        />
+        <div className=" flex flex-col  ">
+          <CategoryForm
+            onSubmit={handleSubmit}
+            onCancel={() => navigate("/admin/categories")}
+            submitText="Lưu danh mục"
+            categories={data?.data}
+            isLoadingCategories={isLoading}
+            apiError={mutationError}
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }

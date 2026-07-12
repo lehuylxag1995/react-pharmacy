@@ -12,22 +12,26 @@ export interface ICategory {
   updatedAt: Date;
 }
 
-export interface ICategoryListItem {
-  id: number;
-  parentId: number | null;
-  name: string;
-  isActive: boolean;
+export interface ICategoryPublic extends Pick<
+  ICategory,
+  "id" | "description" | "isActive" | "name" | "parentId" | "slug" | "sortOrder"
+> {}
+
+export interface ICategoryWithParentName extends ICategoryPublic {
+  parentName: string;
+  createdAt: Date;
+}
+
+export interface ICategoryListItem extends Pick<
+  ICategory,
+  "id" | "parentId" | "name" | "isActive"
+> {
   childrenCount: number;
 }
 
 export interface IGetCategoryQueries {
   id?: number;
-  search?: string;
+  name?: string;
   status?: number;
   sortBy?: number;
 }
-
-export interface ICategorySelect extends Pick<
-  ICategory,
-  "id" | "name" | "parentId" | "slug" | "description" | "sortOrder" | "isActive"
-> {}
