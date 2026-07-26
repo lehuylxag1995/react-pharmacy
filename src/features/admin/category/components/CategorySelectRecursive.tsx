@@ -3,15 +3,19 @@ import type { ICategorySelect } from "@/features/admin/category/interfaces/categ
 import React from "react";
 
 export function CategorySelectItemRecursive({
-  categories,
+  categoriesSelect,
   parentId,
   char,
+  excludeId,
 }: {
-  categories: ICategorySelect[];
+  categoriesSelect: ICategorySelect[];
   parentId: null | number;
   char: string;
+  excludeId?: number;
 }) {
-  const currentCategory = categories.filter((c) => c.parentId === parentId);
+  const currentCategory = categoriesSelect.filter(
+    (c) => c.parentId === parentId,
+  );
 
   if (currentCategory.length === 0) return null;
 
@@ -19,15 +23,20 @@ export function CategorySelectItemRecursive({
     <>
       {currentCategory.map((c) => (
         <React.Fragment key={c.id}>
-          <SelectItem key={c.id} value={String(c.id)}>
+          <SelectItem
+            key={c.id}
+            value={String(c.id)}
+            disabled={c.id === excludeId}
+          >
             {char}
             {c.name}
           </SelectItem>
 
           <CategorySelectItemRecursive
-            categories={categories}
+            categoriesSelect={categoriesSelect}
             parentId={c.id}
             char={char + "--"}
+            excludeId={excludeId}
           />
         </React.Fragment>
       ))}

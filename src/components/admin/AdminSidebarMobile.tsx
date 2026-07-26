@@ -8,7 +8,10 @@ interface SidebarMobileProps {
   onClose: () => void;
 }
 
-export default function SidebarMobile({ isOpen, onClose }: SidebarMobileProps) {
+export default function AdminSidebarMobile({
+  isOpen,
+  onClose,
+}: SidebarMobileProps) {
   const location = useLocation();
 
   useEffect(() => {

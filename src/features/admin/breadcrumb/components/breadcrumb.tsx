@@ -33,6 +33,7 @@ import { useBreadcrumb } from "../hooks/breadcrumb.hook";
 
 export default function BreadcrumbAdmin() {
   const [searchParams] = useSearchParams();
+
   const id = Number(searchParams.get("id"));
   const { data, isLoading, isError, error } = useBreadcrumb({ id });
 
@@ -41,7 +42,7 @@ export default function BreadcrumbAdmin() {
       <Breadcrumb>
         <BreadcrumbList className="text-primary text-base font-bold capitalize">
           <BreadcrumbItem>
-            <NavLink to="/admin/categories">Danh mục</NavLink>
+            <NavLink to={`/admin/categories`}>Danh mục</NavLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

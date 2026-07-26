@@ -14,7 +14,15 @@ export interface ICategory {
 
 export interface ICategoryPublic extends Pick<
   ICategory,
-  "id" | "description" | "isActive" | "name" | "parentId" | "slug" | "sortOrder"
+  | "id"
+  | "description"
+  | "isActive"
+  | "name"
+  | "parentId"
+  | "slug"
+  | "sortOrder"
+  | "metaTitle"
+  | "metaDescription"
 > {}
 
 export interface ICategoryWithParentName extends ICategoryPublic {
@@ -35,3 +43,8 @@ export interface IGetCategoryQueries {
   status?: number;
   sortBy?: number;
 }
+
+export interface ICategorySelect extends Pick<
+  ICategory,
+  "id" | "parentId" | "name"
+> {}

@@ -4,12 +4,12 @@ import { NavLink } from "react-router";
 
 import BreadcrumbAdmin from "../../breadcrumb/components/breadcrumb";
 import { CategoryFilter } from "../components/CategoryFilter";
-import CategoryList from "../components/CategoryList";
-import CategoryListMobile from "../components/CategoryListMobile";
+import CategoryList from "./CategoryListDesktop.page";
+import CategoryListMobile from "./CategoryListMobile.page";
 
-export default function CategoryPage() {
+export default function CategoryListPage() {
   return (
-    <div className="m-4 rounded-2xl border shadow bg-card text-card-foreground">
+    <div className="bg-card text-card-foreground">
       <div className="px-4 py-3 min-h-full">
         <div className="flex flex-col gap-2">
           {/* Tiêu đề */}
@@ -27,7 +27,9 @@ export default function CategoryPage() {
           </NavLink>
 
           {/* Danh sách Mobile */}
+          {/* <div className="lg:hidden"> */}
           <CategoryListMobile />
+          {/* </div> */}
 
           {/* Danh sách Desktop */}
           <div className="hidden lg:hidden">

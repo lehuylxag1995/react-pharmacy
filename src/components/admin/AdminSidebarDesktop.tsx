@@ -6,7 +6,7 @@ interface SidebarProps {
   isCollapsed: boolean;
 }
 
-export default function Sidebar({ isCollapsed }: SidebarProps) {
+export default function AdminSidebarDesktop({ isCollapsed }: SidebarProps) {
   return (
     <aside
       className={`hidden md:flex h-full flex-col overflow-hidden border-r bg-sidebar text-sidebar-foreground shrink-0 transition-all duration-300 ease-in-out

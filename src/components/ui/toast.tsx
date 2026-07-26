@@ -6,7 +6,7 @@ type ToastType = "success" | "error" | "warning" | "info";
 interface ToastProps {
   id: string | number;
   title: string;
-  description: string;
+  description?: string;
   type: ToastType;
   action?: {
     label: string;
@@ -49,7 +49,7 @@ function ToastContent(props: ToastProps) {
 
   return (
     <div
-      className={`${config.bg} flex w-91 p-4 rounded-xl shadow-lg border bg-opacity-95 transition-all duration-300 backdrop-blur-sm`}
+      className={`${config.bg} flex w-full p-4 rounded-xl shadow-lg border bg-opacity-95 transition-all duration-300 backdrop-blur-sm`}
     >
       {/* Icon bên trái */}
       <div className="shrink-0 mr-3">{config.icon}</div>
@@ -77,21 +77,48 @@ function ToastContent(props: ToastProps) {
   );
 }
 
-export const toastCustom = {
+export const toastMobile = {
+  error: (title: string, description?: string) =>
+    toast.custom(
+      (id) => ToastContent({ id, title, description, type: "error" }),
+      { position: "top-center", duration: 3000 },
+    ),
+  success: (title: string, description?: string) =>
+    toast.custom(
+      (id) => ToastContent({ id, description, title, type: "success" }),
+      { position: "top-center", duration: 3000 },
+    ),
+  info: (title: string, description?: string) =>
+    toast.custom(
+      (id) => ToastContent({ id, description, title, type: "info" }),
+      { position: "top-center", duration: 3000 },
+    ),
+  warning: (title: string, description?: string) =>
+    toast.custom(
+      (id) => ToastContent({ id, description, title, type: "warning" }),
+      { position: "top-center", duration: 3000 },
+    ),
+};
+
+export const toastDesktop = {
   error: (title: string, description: string) =>
-    toast.custom((id) =>
-      ToastContent({ id, title, description, type: "error" }),
+    toast.custom(
+      (id) => ToastContent({ id, title, description, type: "error" }),
+      { position: "top-right", duration: 3000 },
     ),
   success: (title: string, description: string) =>
-    toast.custom((id) =>
-      ToastContent({ id, description, title, type: "success" }),
+    toast.custom(
+      (id) => ToastContent({ id, description, title, type: "success" }),
+      { position: "top-right", duration: 3000 },
     ),
   info: (title: string, description: string) =>
-    toast.custom((id) =>
-      ToastContent({ id, description, title, type: "info" }),
+    toast.custom(
+      (id) => ToastContent({ id, description, title, type: "info" }),
+      { position: "top-right", duration: 3000 },
     ),
   warning: (title: string, description: string) =>
-    toast.custom((id) =>
-      ToastContent({ id, description, title, type: "warning" }),
+    toast.custom(
+      (id) => ToastContent({ id, description, title, type: "warning" }),
+      { position: "top-right", duration: 3000 },
     ),
 };

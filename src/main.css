@@ -213,6 +213,7 @@
   body {
     @apply bg-background text-foreground;
 
+    position: relative;
     /* margin: 0;
     padding: 0;
 

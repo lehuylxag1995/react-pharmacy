@@ -6,7 +6,10 @@ import type {
   IGetCategoryQueries,
 } from "@/features/admin/category/interfaces/category.interface";
 import type { ApiSuccess } from "@/types/backend.type";
-import type { CreateCategoryType } from "../schemas/category.schema";
+import type {
+  CreateCategoryType,
+  UpdateCategoryType,
+} from "../schemas/category.schema";
 
 export const categoryApi = {
   // Trả về danh sách danh mục với các queries
@@ -36,6 +39,14 @@ export const categoryApi = {
     const response = await axiosClient.post<
       ApiSuccess<ICategoryWithParentName>
     >(`/categories`, data);
+    return response.data;
+  },
+
+  update: async (id: number, data: UpdateCategoryType) => {
+    const response = await axiosClient.put<ApiSuccess<ICategoryWithParentName>>(
+      `/categories/${id}`,
+      data,
+    );
     return response.data;
   },
 };

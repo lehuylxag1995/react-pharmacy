@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Outlet } from "react-router";
-import BottomNavigation from "./bottom-navigation";
-import Header from "./header";
-import Sidebar from "./sidebar";
-import SidebarMobile from "./sidebar-mobile";
+
+import AdminHeader from "./AdminHeader";
+import AdminNavigationMobile from "./AdminNavigationMobile";
+import AdminSidebarDesktop from "./AdminSidebarDesktop";
+import AdminSidebarMobile from "./AdminSidebarMobile";
 
 export default function AdminLayout() {
   // 1. State điều khiển Desktop: Mặc định là FALSE (không thu gọn -> hiển thị đầy đủ w-64)
@@ -15,17 +16,17 @@ export default function AdminLayout() {
   return (
     <div className="fixed inset-0 flex bg-background text-foreground overflow-hidden ">
       {/* Sidebar bản Desktop */}
-      <Sidebar isCollapsed={isSidebarCollapsed} />
+      <AdminSidebarDesktop isCollapsed={isSidebarCollapsed} />
 
       {/* Sidebar bản Mobile */}
-      <SidebarMobile
+      <AdminSidebarMobile
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />
 
       {/* content bên phải */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <Header
+        <AdminHeader
           isSidebarCollapsed={isSidebarCollapsed}
           setIsSidebarCollapsed={setIsSidebarCollapsed}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -36,7 +37,7 @@ export default function AdminLayout() {
         </main>
 
         {/* (Tự ẩn trên Desktop, chỉ hiện trên Mobile) */}
-        <BottomNavigation />
+        <AdminNavigationMobile />
       </div>
     </div>
   );

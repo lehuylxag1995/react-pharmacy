@@ -1,7 +1,7 @@
 export type ApiError = {
   success: false;
   error: {
-    code?: string;
+    code: string;
     message: string;
     details?: {
       field: string;
@@ -10,15 +10,15 @@ export type ApiError = {
   };
 };
 
-export type PaginationMeta = {
-  page: number;
-  limit: number;
-  total: number;
-  totalPages: number;
-};
-
 export type ApiSuccess<T> = {
   success: true;
   data: T;
   meta?: PaginationMeta;
+};
+
+type PaginationMeta = {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
 };

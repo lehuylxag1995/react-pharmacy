@@ -7,7 +7,7 @@ interface HeaderProps {
   setIsSidebarCollapsed: (value: boolean) => void;
   setIsMobileMenuOpen: (value: boolean) => void;
 }
-export default function Header({
+export default function AdminHeader({
   isSidebarCollapsed,
   setIsMobileMenuOpen,
   setIsSidebarCollapsed,

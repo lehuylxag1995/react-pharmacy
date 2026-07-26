@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function CategorySkeleton() {
+export default function CategoryListMobileLoading() {
   return (
     <div className="flex flex-col">
       {Array.from({ length: 5 }).map((_, index) => (

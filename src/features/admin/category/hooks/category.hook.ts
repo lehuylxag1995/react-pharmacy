@@ -1,7 +1,10 @@
 import type { IGetCategoryQueries } from "@/features/admin/category/interfaces/category.interface";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { categoryApi } from "../api/category.api";
-import type { CreateCategoryType } from "../schemas/category.schema";
+import type {
+  CreateCategoryType,
+  UpdateCategoryType,
+} from "../schemas/category.schema";
 
 // Quản lý Query Key tập trung để dễ dàng xóa cache (invalidate)
 export const categoryKeys = {
@@ -16,6 +19,7 @@ export const categoryKeys = {
   select: () => [...categoryKeys.all, "select"] as const,
 
   create: () => [...categoryKeys.all, "create"] as const,
+  update: (id: number) => [...categoryKeys.all, "update", id] as const,
 };
 
 // Hook lấy danh sách danh mục
@@ -46,5 +50,12 @@ export const useCreateCategory = () => {
   return useMutation({
     mutationKey: categoryKeys.create(),
     mutationFn: (data: CreateCategoryType) => categoryApi.create(data),
+  });
+};
+
+export const useUpdateCategory = (id: number) => {
+  return useMutation({
+    mutationKey: categoryKeys.update(id),
+    mutationFn: (data: UpdateCategoryType) => categoryApi.update(id, data),
   });
 };

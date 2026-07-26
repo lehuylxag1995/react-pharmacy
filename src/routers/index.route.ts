@@ -1,5 +1,6 @@
-import CategoryAddSuccessPage from "@/features/admin/category/pages/category-add-success.page";
-import CategoryAddPage from "@/features/admin/category/pages/category-add.page";
+import CategoryAddPage from "@/features/admin/category/pages/CategoryAdd.page";
+import CategoryAddSuccessPage from "@/features/admin/category/pages/CategoryAddSuccess.page";
+import CategoryEditPage from "@/features/admin/category/pages/CategoryEdit.page";
 import NotificationPage from "@/features/admin/notification/notification.page";
 import OrderPage from "@/features/admin/order/order.page";
 import ProductPage from "@/features/admin/product/product.page";
@@ -8,7 +9,7 @@ import { createBrowserRouter } from "react-router";
 import AdminLayout from "../components/admin/AdminLayout";
 import AuthLayout from "../components/auth/AuthLayout";
 import UserLayout from "../components/user/UserLayout";
-import CategoryPage from "../features/admin/category/pages/category.page";
+import CategoryListPage from "../features/admin/category/pages/CategoryList.page";
 import DashboardPage from "../features/admin/dashboard/dashboard.page";
 import RegisterPage from "../features/auth/register/register.page";
 import SignInPage from "../features/auth/sign-in/sign-in.page";
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       { path: "register", Component: RegisterPage },
     ],
   },
+
   {
     path: "/admin",
     Component: AdminLayout,
@@ -34,15 +36,24 @@ export const router = createBrowserRouter([
       { index: true, Component: DashboardPage },
       {
         path: "categories",
-        Component: CategoryPage,
-      },
-      {
-        path: "categories/add",
-        Component: CategoryAddPage,
-      },
-      {
-        path: "categories/add/success",
-        Component: CategoryAddSuccessPage,
+        children: [
+          {
+            index: true,
+            Component: CategoryListPage, // /admin/categories
+          },
+          {
+            path: "add",
+            Component: CategoryAddPage,
+          },
+          {
+            path: "add/success",
+            Component: CategoryAddSuccessPage,
+          },
+          {
+            path: ":id/edit",
+            Component: CategoryEditPage,
+          },
+        ],
       },
 
       { path: "orders", Component: OrderPage },

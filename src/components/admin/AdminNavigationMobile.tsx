@@ -20,7 +20,7 @@ const navItems = [
   { icon: MoreHorizontal, label: "Thêm", badge: 0, path: "/admin/adds" },
 ];
 
-export default function BottomNavigation() {
+export default function AdminNavigationMobile() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 h-13 w-full shrink-0 z-50 bg-background border-t flex items-center justify-around md:hidden ">
       {navItems.map((item, index) => {
