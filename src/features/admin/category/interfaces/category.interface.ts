@@ -48,3 +48,12 @@ export interface ICategorySelect extends Pick<
   ICategory,
   "id" | "parentId" | "name"
 > {}
+
+export interface ICategoryInfoDelete extends Pick<
+  ICategory,
+  "id" | "name" | "isActive"
+> {
+  parentName: string | null;
+  countProducts: number;
+  countCategories: number;
+}

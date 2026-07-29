@@ -1,5 +1,6 @@
 import { axiosClient } from "@/configs/axios.config";
 import type {
+  ICategoryInfoDelete,
   ICategoryListItem,
   ICategoryPublic,
   ICategoryWithParentName,
@@ -22,9 +23,16 @@ export const categoryApi = {
   },
 
   // Trả về một danh mục theo ID
-  getById: async (id: number) => {
+  getById: async (id: number | null) => {
     const response = await axiosClient.get<ApiSuccess<ICategoryPublic>>(
       `/categories/${id}`,
+    );
+    return response.data;
+  },
+
+  getInfoDeteleById: async (id: number | null) => {
+    const response = await axiosClient.get<ApiSuccess<ICategoryInfoDelete>>(
+      `/categories/${id}/info-delete`,
     );
     return response.data;
   },

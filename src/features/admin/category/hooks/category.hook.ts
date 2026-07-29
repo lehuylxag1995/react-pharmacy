@@ -14,7 +14,10 @@ export const categoryKeys = {
     [...categoryKeys.lists(), queries] as const,
 
   details: () => [...categoryKeys.all, "detail"] as const,
-  detail: (id: number) => [...categoryKeys.details(), "detail", id] as const,
+  detail: (id: number | null) =>
+    [...categoryKeys.details(), "detail", id] as const,
+  infoDelete: (id: number | null) =>
+    [...categoryKeys.details(), "info-delete", id] as const,
 
   select: () => [...categoryKeys.all, "select"] as const,
 
@@ -27,15 +30,14 @@ export const useCategories = (queries: IGetCategoryQueries) => {
   return useQuery({
     queryKey: categoryKeys.list(queries),
     queryFn: () => categoryApi.getList(queries),
-    retry: false,
   });
 };
 
-export const useCategory = (id: number) => {
+export const useCategory = (id: number | null) => {
   return useQuery({
     queryKey: categoryKeys.detail(id),
     queryFn: () => categoryApi.getById(id),
-    enabled: !!id, // Chỉ tự động gọi API khi có id (id khác null/0)
+    enabled: id !== null, // Chỉ tự động gọi API khi có id (id khác null/0)
   });
 };
 
@@ -57,5 +59,13 @@ export const useUpdateCategory = (id: number) => {
   return useMutation({
     mutationKey: categoryKeys.update(id),
     mutationFn: (data: UpdateCategoryType) => categoryApi.update(id, data),
+  });
+};
+
+export const useCategoryInfoDelete = (id: number | null) => {
+  return useQuery({
+    queryKey: categoryKeys.infoDelete(id),
+    queryFn: () => categoryApi.getInfoDeteleById(id),
+    enabled: id !== null,
   });
 };
